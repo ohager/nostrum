@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@signumjs/core": "^1.0.0-rc.69",
+    "@signumjs/util": "^1.0.0-rc.69",
+    "@signumjs/wallets": "^1.0.0-rc.69",
     "daisyui": "^2.51.6",
     "framer-motion": "^10.12.12",
     "next": "^13.4.1",
