@@ -3,20 +3,19 @@
 import React, {useEffect, useState} from 'react';
 import {useDetectClickOutside} from '@/hooks/useDetectClickOutside';
 import {ModalEvent} from '@/types/modalEvent';
+import {motion} from "framer-motion"
 
 export const Modal = () => {
-    const [content, setContent] = useState<ModalEvent|null>(null)
-    const {ref} =  useDetectClickOutside((clickedOutside) => {
-        if(clickedOutside){
+    const [content, setContent] = useState<ModalEvent | null>(null)
+    const {ref} = useDetectClickOutside((clickedOutside) => {
+        if (clickedOutside) {
             setContent(null)
         }
     })
 
     useEffect(() => {
-
-        function handleModalEvent(e: CustomEvent<ModalEvent>){
+        function handleModalEvent(e: CustomEvent<ModalEvent>) {
             setContent(e.detail)
-            console.log(e.detail)
         }
 
         window.addEventListener('modal', handleModalEvent)
@@ -27,14 +26,19 @@ export const Modal = () => {
     }, [])
 
     return (
-        <div ref={ref} className="modal modal-bottom sm:modal-middle"
+        <div className="modal modal-middle"
              style={{visibility: content ? 'visible' : "hidden", opacity: content ? 1 : 0}}>
-            <div className="modal-box">
-                <h3 className="font-bold text-lg">{content?.title}</h3>
-                <p className="py-4">{content?.text}</p>
-                {/*<div className="modal-action">*/}
-                {/*    <label htmlFor="my-modal" className="btn">Yay!</label>*/}
-                {/*</div>*/}
+            <div className="relative">
+                {content && (
+                    <motion.div className="absolute rotate-12" animate={{top: -100, right: 40}} style={{right: "120px"}}>
+                        <img src="/img/ostrich_head.webp" width={100} alt="Howdy Ostrich"/>
+                    </motion.div>
+                    )
+                }
+                <div ref={ref} className="modal-box overflow-visible z-10">
+                    <h3 className="font-bold text-lg">{content?.title}</h3>
+                    <p className="py-4">{content?.text}</p>
+                </div>
             </div>
         </div>
     )

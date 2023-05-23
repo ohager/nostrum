@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 type ClickHandler = (clickedOutside:boolean) => void
 export function useDetectClickOutside(handler : ClickHandler ) {
-    const ref = useRef(null);
+    const ref = useRef<HTMLDivElement>(null);
     const handleClickOutside = (event) => {
         handler(ref.current && !ref.current.contains(event.target))
     };

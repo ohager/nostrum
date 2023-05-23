@@ -26,7 +26,7 @@ export default function Page() {
         <div>
         <AppContextProvider>
             <div className="min-h-screen"
-                 style={{background: "url(./img/ostrich_wild.webp) no-repeat fixed", backgroundSize: "cover"}}>
+                 style={{background: "url(./img/ostrich_wild.webp) no-repeat fixed", backgroundSize: 'cover'}}>
                 <div className="bg-gradient-to-bl from-indigo-500 via-purple-500 to-pink-500 opacity-90">
                     <ChooseNameSection ref={chooseNameSectionRef} onNext={handleNextStep}/>
                     <ConnectWalletSection ref={connectWalletNameSectionRef} onNext={handleNextStep}/>
