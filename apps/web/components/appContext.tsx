@@ -13,6 +13,9 @@ const config: AppContextType = {
   Wallet: {
     Extension: new GenericExtensionWallet(),
   },
+  Nostr: {
+    PublicKey: ""
+  },
   Ledger: {
     IsTestnet,
     DefaultNode: process.env.NEXT_PUBLIC_DEFAULT_NODE || "",

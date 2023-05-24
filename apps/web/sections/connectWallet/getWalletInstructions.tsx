@@ -24,13 +24,15 @@ export const GetWalletInstructions = () => {
     return (
         <div className="card w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body">
-                <img src="/img/signum-xt-logo-transparent.png" alt="xt-wallet-logo" width={200}/>
-                <div className="py-6">
-                    <p className="text-justify">
-                        Looks like you haven't installed the Signum XT Wallet yet.
-                    </p>
+                <div>
+                    <iframe
+                    className="rounded-xl mx-auto"
+                        width="300" height={200} src="https://www.youtube.com/embed/MRlj90ZA2Dc"
+                            title="Manage Nostr Accounts in Signum XT Browser Extension" frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen></iframe>
                 </div>
-                <div className="link text-xs flex flex-row items-center mb-6">
+                <div className="link text-left text-xs flex flex-row items-center mb-6">
                     <FiHelpCircle className="opacity-60 mr-2" size={28}/>
                     <a href="https://www.youtube.com/watch?v=MRlj90ZA2Dc" target="_blank" rel="noreferrer noopener">
                         Learn how to create and/or import your Nostr and Signum Accounts

@@ -5,6 +5,9 @@ export interface AppContextType {
     Wallet: {
         Extension: GenericExtensionWallet;
     };
+    Nostr: {
+        PublicKey : string;
+    }
     Ledger: {
         DefaultNode: string;
         NetworkName: "Signum" | "Signum-TESTNET"
