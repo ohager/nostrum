@@ -1,5 +1,5 @@
 export interface ModalEvent {
-    type: "info" | "success" | "error",
-    title: string,
-    text: string,
+  type: "info" | "success" | "error";
+  title: string;
+  text: string;
 }

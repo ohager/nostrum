@@ -1,3 +1,3 @@
 export interface NextProps {
-    onNext: () => void
+  onNext: () => void;
 }

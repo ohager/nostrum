@@ -1,0 +1,8 @@
+# Ignore artifacts:
+build
+coverage
+.turbo
+.idea
+.husky
+.next
+.swc

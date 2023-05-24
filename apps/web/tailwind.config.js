@@ -18,4 +18,14 @@ module.exports = {
     require("daisyui"),
     require('tailwind-scrollbar')({nocompatible: true})
   ],
+  daisyui: {
+    styled: true,
+    themes: ["light","dark"],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",
+    darkTheme: "dark",
+  },
 };

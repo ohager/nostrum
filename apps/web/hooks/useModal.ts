@@ -1,15 +1,13 @@
-import {ModalEvent} from '@/types/modalEvent';
+import { ModalEvent } from "@/types/modalEvent";
 
 export const useModal = () => {
+  function openModal(data: ModalEvent) {
+    window.dispatchEvent(new CustomEvent("modal", { detail: data }));
+  }
 
-    function openModal(data: ModalEvent) {
-        window.dispatchEvent(new CustomEvent('modal', {detail:data}))
+  function closeModal() {
+    window.dispatchEvent(new CustomEvent("modal", { detail: null }));
+  }
 
-    }
-
-    function closeModal() {
-        window.dispatchEvent(new CustomEvent('modal', {detail:null}))
-    }
-
-    return {openModal, closeModal}
-}
+  return { openModal, closeModal };
+};
