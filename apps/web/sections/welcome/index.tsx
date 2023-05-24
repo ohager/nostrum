@@ -49,14 +49,12 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">Claim your Name</h2>
-                  <p>
-                    Within three simple step you can get your name
-                    <ul className="list-none text-justify mt-2">
-                      <li>① Choose your Name</li>
-                      <li>② Connect with XT Wallet</li>
-                      <li>③ Claim your Name</li>
-                    </ul>
-                  </p>
+                  <p>Within three simple step you can get your name</p>
+                  <ul className="list-none text-justify mt-2">
+                    <li>① Choose your Name</li>
+                    <li>② Connect with XT Wallet</li>
+                    <li>③ Claim your Name</li>
+                  </ul>
                 </div>
               </div>
             </div>

@@ -2,8 +2,8 @@
 
 import { ChooseNameSection } from "../sections/chooseName";
 import { ConnectWalletSection } from "../sections/connectWallet";
-import { useEffect, useRef } from "react";
-import { AppContextProvider } from "../components/appContext";
+import { useEffect, useRef, useState } from "react";
+import { AppContextProvider } from "@/components/appContext";
 import { ClaimAliasSection } from "../sections/claimAlias";
 import { WelcomeSection } from "../sections/welcome";
 import { useScroll, useTransform } from "framer-motion";
@@ -15,6 +15,12 @@ export default function Page() {
   const connectWalletNameSectionRef = useRef<HTMLDivElement>();
   const claimAliasSectionRef = useRef<HTMLDivElement>();
 
+  const [state, setState] = useState({
+    name: "ohager",
+    nostrPubKey: "",
+    signumPubKey: "",
+  });
+
   const { scrollY } = useScroll();
   const dynamicOpacity = useTransform(scrollY, [0, 1000], [1, 0]);
 
@@ -22,6 +28,21 @@ export default function Page() {
     window.scrollTo({
       behavior: "smooth",
       top: nextRef.current.offsetTop,
+    });
+  };
+
+  const handleConnection = (nostrPubKey: string, signumPubKey: string) => {
+    setState({
+      ...state,
+      nostrPubKey,
+      signumPubKey,
+    });
+  };
+
+  const handleName = (name: string) => {
+    setState({
+      ...state,
+      name,
     });
   };
 
@@ -42,12 +63,14 @@ export default function Page() {
             <ChooseNameSection
               ref={chooseNameSectionRef}
               onNext={() => handleNextStep(connectWalletNameSectionRef)}
+              onName={handleName}
             />
             <ConnectWalletSection
               ref={connectWalletNameSectionRef}
               onNext={() => handleNextStep(claimAliasSectionRef)}
+              onConnection={handleConnection}
             />
-            <ClaimAliasSection ref={claimAliasSectionRef} onNext={() => {}} />
+            <ClaimAliasSection ref={claimAliasSectionRef} {...state} />
           </div>
         </div>
       </AppContextProvider>

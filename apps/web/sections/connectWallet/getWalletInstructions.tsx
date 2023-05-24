@@ -1,5 +1,6 @@
 import { detect } from "detect-browser";
 import { FiHelpCircle, FiAlertTriangle } from "react-icons/fi";
+import { useMemo } from "react";
 
 function GetXTUrl(): string {
   const browser = detect();
@@ -18,19 +19,20 @@ function GetXTUrl(): string {
 }
 
 export const GetWalletInstructions = () => {
-  const url = GetXTUrl();
+  // const url = GetXTUrl();
+
+  const url = useMemo(() => {
+    return GetXTUrl();
+  }, []);
 
   return (
     <div className="card w-full max-w-sm shadow-2xl bg-base-100">
       <div className="card-body">
         <div>
           <iframe
-            className="rounded-xl mx-auto"
-            width="300"
-            height={200}
+            className="rounded-xl mx-auto w-full"
             src="https://www.youtube.com/embed/MRlj90ZA2Dc"
             title="Manage Nostr Accounts in Signum XT Browser Extension"
-            frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>
@@ -48,7 +50,7 @@ export const GetWalletInstructions = () => {
         {url ? (
           <a
             className="link text-center"
-            href={GetXTUrl()}
+            href={url}
             target="_blank"
             rel="noreferrer noopener"
           >

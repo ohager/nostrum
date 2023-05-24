@@ -4,10 +4,12 @@ import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
 import { Zoom } from "react-reveal";
 
-//  ② ③ ④ ⑤ ⑥ ⑦
+interface Props {
+  onName: (name: string) => void;
+}
 
 // eslint-disable-next-line react/display-name
-export const ChooseNameSection = forwardRef<HTMLDivElement, NextProps>(
+export const ChooseNameSection = forwardRef<HTMLDivElement, Props & NextProps>(
   ({ onNext }, ref) => {
     return (
       // @ts-ignore

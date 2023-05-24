@@ -16,10 +16,12 @@
     "detect-browser": "^5.3.0",
     "framer-motion": "^10.12.12",
     "next": "^13.4.1",
+    "nostr-tools": "^1.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-reveal": "^1.2.2",
+    "react-simple-typewriter": "^5.0.1",
     "ui": "*"
   },
   "devDependencies": {
@@ -28,11 +30,11 @@
     "@types/react-dom": "^18.0.7",
     "autoprefixer": "^10.4.14",
     "eslint-config-custom": "*",
+    "husky": "^8.0.0",
     "postcss": "^8.4.23",
     "tailwind-scrollbar": "^3.0.4",
     "tailwindcss": "^3.3.2",
     "tsconfig": "*",
-    "typescript": "^4.5.3",
-    "husky": "^8.0.0"
+    "typescript": "^4.5.3"
   }
 }
