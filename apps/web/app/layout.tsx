@@ -2,7 +2,9 @@ import "./global.css"
 import React from 'react';
 import {NavBar} from '@/components/navBar';
 import {Modal} from '@/components/modal';
+import config from 'react-reveal/globals';
 
+config({ ssrFadeout: true });
 export default function RootLayout({
                                        children,
                                    }: {

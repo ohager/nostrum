@@ -1,4 +1,5 @@
 import {FiGithub} from "react-icons/fi"
+import Image from 'next/image';
 export const NavBar = () => {
     return (
             <div className="fixed navbar z-10">
@@ -11,7 +12,7 @@ export const NavBar = () => {
                     </div>
                     <div className="tooltip tooltip-left" data-tip="Signum Network">
                         <a href="https://signum.network" className="btn btn-square btn-ghost btn-xl" rel="noreferrer noopener" target="_blank">
-                            <img src="/img/signum-logo.svg" width={20} height={20} alt={"Signum Network Logo"} />
+                            <Image src="/img/signum-logo.svg" width={20} height={20} alt={"Signum Network Logo"} />
                         </a>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {useDetectClickOutside} from '@/hooks/useDetectClickOutside';
 import {ModalEvent} from '@/types/modalEvent';
 import {motion} from "framer-motion"
+import Image from 'next/image';
 
 export const Modal = () => {
     const [content, setContent] = useState<ModalEvent | null>(null)
@@ -31,7 +32,7 @@ export const Modal = () => {
             <div className="relative">
                 {content && (
                     <motion.div className="absolute rotate-12" animate={{top: -100, right: 40}} style={{right: "120px"}}>
-                        <img src="/img/ostrich_head.webp" width={100} alt="Howdy Ostrich"/>
+                        <Image src="/img/ostrich_head.webp" width={100} alt="Howdy Ostrich"/>
                     </motion.div>
                     )
                 }
