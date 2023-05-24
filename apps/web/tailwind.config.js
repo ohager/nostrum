@@ -10,10 +10,12 @@ module.exports = {
     './src/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+
+    },
   },
   plugins: [
     require("daisyui"),
-    require('tailwind-scrollbar')({ nocompatible: true })
+    require('tailwind-scrollbar')({nocompatible: true})
   ],
 };

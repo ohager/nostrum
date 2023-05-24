@@ -13,7 +13,8 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(({onNext}, r
             // @ts-ignore
             <BaseSection ref={ref} sign="">
                 <Fade up>
-                    <h2 className="relative top-[4rem] mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-pink-900 drop-shadow-xl">Decentralized
+                    <h2 className="relative lg:top-[6rem] top-[6rem] mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text
+                    bg-gradient-to-r from-green-200 to-pink-300 drop-shadow-xl">Decentralized
                         Nostr Account Verification and Search</h2>
                 </Fade>
                 <Hero>
@@ -22,9 +23,9 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(({onNext}, r
                             <div>
                                 <h1 className="text-5xl font-bold">Welcome, Nostrian!</h1>
                                 <p className="py-6 text-justify text-2xl">
-                                    Easily get your NIP05 Nostr Address in a truly decentralized manner.
+                                    Get your <u>decentralized</u> NIP05 Nostr Address.
                                 </p>
-                                <p className="text-justify ">
+                                <p className="text-justify text-lg">
                                     Claim your very own Nostr Address stored on the Signum Blockchain. Truly decentralized!
                                     All you need is a Nostr public key and a Signum Account.
                                 </p>

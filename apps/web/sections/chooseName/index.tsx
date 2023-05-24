@@ -2,6 +2,7 @@ import {forwardRef} from 'react';
 import {BaseSection} from '../baseSection';
 import {NextProps} from '@/types/nextProps';
 import {Hero} from '@/components/hero';
+import {Zoom} from 'react-reveal';
 
 //  ② ③ ④ ⑤ ⑥ ⑦
 
@@ -11,6 +12,7 @@ export const ChooseNameSection = forwardRef<HTMLDivElement, NextProps>(({onNext}
         return (
             // @ts-ignore
             <BaseSection ref={ref} sign="①">
+                <Zoom>
                     <Hero>
                         <div className="flex lg:flex-row flex-col">
                             <div className="flex-1 p-6">
@@ -27,6 +29,7 @@ export const ChooseNameSection = forwardRef<HTMLDivElement, NextProps>(({onNext}
                             </div>
                         </div>
                     </Hero>
+                </Zoom>
             </BaseSection>
         )
     }
