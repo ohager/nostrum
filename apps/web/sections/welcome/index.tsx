@@ -2,13 +2,21 @@ import { forwardRef } from "react";
 import { BaseSection } from "../baseSection";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
-import { Fade, Zoom } from "react-reveal";
+import { useTypewriter } from "react-simple-typewriter";
 
 // ① ② ③ ④ ⑤ ⑥ ⑦
 
 // eslint-disable-next-line react/display-name
 export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
   ({ onNext }, ref) => {
+    const [text] = useTypewriter({
+      words: [
+        "Decentralized Nostr Accounts",
+        "Domainless Verification",
+        "Globally Searchable",
+      ],
+      loop: 0,
+    });
     return (
       // @ts-ignore
       <BaseSection ref={ref} sign="">
@@ -16,8 +24,9 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
           className="relative lg:top-[6rem] top-[6rem] mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text
                     bg-gradient-to-r from-green-200 to-pink-300 drop-shadow-xl"
         >
-          Decentralized Nostr Account Verification and Search
+          {text || <span>&nbsp;</span>}
         </h2>
+
         <Hero>
           <div className="flex lg:flex-row flex-col">
             <div className="flex-1 flex flex-col justify-between s p-6">

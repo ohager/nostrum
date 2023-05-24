@@ -58,7 +58,6 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const waitForClaim = name && signumPubKey && nostrPubKey;
     const isDone = claimingPhase >= ClaimingPhases.length;
 
-    console.log(ClaimingPhases[claimingPhase - 1]);
     return (
       // @ts-ignore
       <BaseSection ref={ref} sign="③">
@@ -157,7 +156,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                             <pre
                               data-prefix=">"
                               className={`${
-                                isDone ? "text-success" : "text-grey-400"
+                                isDone ? "text-success" : "text-gray-400"
                               }`}
                             >
                               <code>
