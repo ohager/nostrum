@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export const NotGrantedInstructions = () => {
     return (
         <div className="card w-full max-w-sm mx-auto shadow-2xl bg-base-100">
