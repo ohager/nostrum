@@ -29,8 +29,9 @@
     "package": "yarn publish"
   },
   "dependencies": {
-    "lit": "^2.7.4",
     "@lit-labs/react": "^1.1.1",
+    "lit": "^2.7.4",
+    "p-debounce": "^4.0.0",
     "tslib": "^2.5.2"
   },
   "publishConfig": {
@@ -38,7 +39,7 @@
   },
   "exports": {
     ".": "./dist/index.js",
-    "./react": "./react/denavasNameSearch.tsx"
+    "./react": "./react/index.ts"
   },
   "devDependencies": {
     "esbuild": "^0.17.19"

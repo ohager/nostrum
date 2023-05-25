@@ -3,15 +3,7 @@ import { BaseSection } from "../baseSection";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
 import { Zoom } from "react-reveal";
-import dynamic from "next/dynamic";
-
-const NameSearch = dynamic(
-  () =>
-    // @ts-ignore
-    import("denavas-name-search/react").then((mod) => mod.DenavasNameSearch),
-  { ssr: false }
-);
-
+import { DenavasNameSearch } from "denavas-name-search/react";
 interface Props {
   onName: (name: string) => void;
 }
@@ -19,6 +11,10 @@ interface Props {
 // eslint-disable-next-line react/display-name
 export const ChooseNameSection = forwardRef<HTMLDivElement, Props & NextProps>(
   ({ onNext }, ref) => {
+    const handleSearchDone = (value) => {
+      console.log("Name Section", value);
+    };
+
     return (
       // @ts-ignore
       <BaseSection ref={ref} sign="①">
@@ -31,9 +27,7 @@ export const ChooseNameSection = forwardRef<HTMLDivElement, Props & NextProps>(
                   Here you can choose your name and check for its availabiltity.
                 </p>
 
-                <h1>TO DO - Search Component</h1>
-
-                <NameSearch />
+                <DenavasNameSearch onSearchDone={handleSearchDone} />
 
                 <div className="text-center">
                   <button className="btn btn-primary" onClick={onNext}>
