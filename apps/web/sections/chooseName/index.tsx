@@ -1,8 +1,16 @@
-import { forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { BaseSection } from "../baseSection";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
 import { Zoom } from "react-reveal";
+import dynamic from "next/dynamic";
+
+const NameSearch = dynamic(
+  () =>
+    // @ts-ignore
+    import("denavas-name-search/react").then((mod) => mod.DenavasNameSearch),
+  { ssr: false }
+);
 
 interface Props {
   onName: (name: string) => void;
@@ -24,6 +32,8 @@ export const ChooseNameSection = forwardRef<HTMLDivElement, Props & NextProps>(
                 </p>
 
                 <h1>TO DO - Search Component</h1>
+
+                <NameSearch />
 
                 <div className="text-center">
                   <button className="btn btn-primary" onClick={onNext}>

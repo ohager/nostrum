@@ -1,0 +1,49 @@
+{
+  "name": "denavas-name-search",
+  "version": "0.0.1",
+  "description": "The reusable name search web component for cross-relay Nostr Name Search",
+  "keywords": [
+    "web component",
+    "nostr"
+  ],
+  "main": "index.ts",
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "index.d.ts",
+  "typings": "index.d.ts",
+  "files": [
+    "/dist/"
+  ],
+  "author": {
+    "name": "ohager",
+    "url": "https://github.com/ohager"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohager/denavas.git",
+    "directory": "packages/denavas-name-search"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild index.ts --bundle --minify --sourcemap --outdir=dist --tsconfig=tsconfig.json",
+    "package": "yarn publish"
+  },
+  "dependencies": {
+    "lit": "^2.7.4",
+    "@lit-labs/react": "^1.1.1",
+    "tslib": "^2.5.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./react": "./react/denavasNameSearch.tsx"
+  },
+  "devDependencies": {
+    "esbuild": "^0.17.19"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}
