@@ -1,11 +1,15 @@
-import { html, css, LitElement } from "lit";
+import { html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import pDebounce from "p-debounce";
+import PQueue from "p-queue";
+import { errorStyles, inputStyles, loaderStyles, rootStyles } from "./styles";
 
 const Defaults = {
-  NodeHost: "https://europe.signum.network",
-  PlaceHolder: "Enter a name",
+  SignumNodeUrl: "https://europe.signum.network",
+  PlaceHolder: "Type a name and hit [Enter]",
+  ErrorMessage: "Name must contain only letters, numbers and/or underscore",
   NamespaceTld: "signum", // nostr
+  NamePattern: "^[a-zA-Z0-9_]{1,100}$",
 };
 
 interface Alias {
@@ -25,89 +29,119 @@ interface AliasList {
 
 interface Match {
   aliasId: string;
+  aliasName: string;
   owner: string;
   description?: string;
   nostrPublicKey?: string;
-  name?: string;
   url?: string;
   avatar?: string;
 }
 
-interface SearchResult {
+export interface SearchResult {
   exactMatch: boolean;
+  input: string;
   error?: string;
   matches: Match[];
 }
 
-@customElement("denavas-name-search")
+@customElement("denavas-name-search") // <denavas-name-search />
 export class DenavasNameSearch extends LitElement {
-  static styles = css`
-    input {
-      border-radius: 4px;
-      font-size: 2rem;
-    }
-
-    input:invalid {
-      border: red solid 3px;
-    }
-
-    .hidden {
-      visibility: hidden;
-      opacity: 0;
-    }
-    .visible {
-      visibility: visible;
-      opacity: 1;
-    }
-  `;
+  static styles = [rootStyles, inputStyles, loaderStyles, errorStyles];
 
   @state()
   protected isSearching = false;
+  @state()
+  protected isNameValid = true;
+  protected queue = new PQueue({ concurrency: 1 });
 
   @property({ type: String })
-  nodeHost = Defaults.NodeHost;
+  signumnodeurl = Defaults.SignumNodeUrl;
   @property({ type: String })
   placeholder = Defaults.PlaceHolder;
+  @property({ type: String })
+  errormsg = Defaults.ErrorMessage;
 
   constructor() {
     super();
-    this.searchAlias = pDebounce(this.searchAlias.bind(this), 1000);
+    this.triggerSearch = pDebounce(this.triggerSearch.bind(this), 500);
   }
 
   render() {
-    console.log("isSearching", this.isSearching);
-
-    return html` <div>
-      <input
-        type="text"
-        pattern="^[a-zA-Z0-9_]{1,100}$"
-        aria-errormessage=""
-        placeholder=${this.placeholder}
-        @change=${this.handleChange}
-        @blur=${this.handleChange}
-        @keypress=${this.handleChange}
-      />
-      <div class="${this.isSearching ? "visible" : "hidden"}">*</div>
+    return html` <div class="root">
+      <div class="inline">
+        <input
+          part="input"
+          type="text"
+          pattern="^[a-zA-Z0-9_]{1,100}$"
+          maxlength="100"
+          placeholder=${this.placeholder}
+          @change=${this.handleChange}
+          @blur=${this.handleChange}
+          @keyup=${this.handleKeypress}
+        />
+        <div class="loader ${this.isSearching ? "visible" : "hidden"}">
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+      <span part="error" class="error"
+        >${!this.isNameValid ? this.errormsg : ""}&nbsp;</span
+      >
     </div>`;
   }
 
-  private async handleChange(e: InputEvent) {
-    const name = (e.target as HTMLInputElement).value;
-    if (name.length < 2) return;
-    const result = await this.searchAlias(name);
-    const event = new CustomEvent("search-done", {
-      bubbles: true,
-      composed: true,
-      detail: result,
+  private handleKeypress(e: KeyboardEvent) {
+    const inputElement = e.target as HTMLInputElement;
+    const name = inputElement.value;
+
+    this.dispatchEvent(
+      new CustomEvent("change", {
+        bubbles: true,
+        composed: true,
+        detail: name,
+      })
+    );
+
+    this.isNameValid = !name ? true : inputElement.checkValidity();
+    if (!name) return;
+    if (e.key === "Enter" && name.length > 1 && !this.isSearching) {
+      e.preventDefault();
+      this.triggerSearch(name);
+    }
+  }
+
+  private triggerSearch(name: string) {
+    this.queue.add(async () => {
+      this.dispatchEvent(
+        new CustomEvent("search-started", {
+          bubbles: true,
+          composed: true,
+        })
+      );
+      const result = await this.searchAlias(name);
+      this.dispatchEvent(
+        new CustomEvent("search-done", {
+          bubbles: true,
+          composed: true,
+          detail: result,
+        })
+      );
     });
-    this.dispatchEvent(event);
+  }
+
+  private handleChange(e: InputEvent) {
+    const name = (e.target as HTMLInputElement).value;
+
+    if (name.length >= 2 && !this.isSearching) {
+      this.triggerSearch(name);
+    }
   }
 
   private async searchAlias(name: string) {
     try {
       this.isSearching = true;
       const response = await fetch(
-        `${this.nodeHost}/api?requestType=getAliasesByName&aliasName=${name}`
+        `${this.signumnodeurl}/api?requestType=getAliasesByName&aliasName=${name}`
       );
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -118,7 +152,11 @@ export class DenavasNameSearch extends LitElement {
         throw new Error(json.errorDescription);
       }
       const { aliases } = json as AliasList;
-      let searchResult: SearchResult = { exactMatch: false, matches: [] };
+      let searchResult: SearchResult = {
+        exactMatch: false,
+        matches: [],
+        input: name,
+      };
       for (let al of aliases) {
         if (al.tldName !== Defaults.NamespaceTld) {
           continue;
@@ -129,6 +167,7 @@ export class DenavasNameSearch extends LitElement {
         let match: Match = {
           aliasId: al.alias,
           owner: al.account,
+          aliasName: al.aliasName,
         };
         try {
           const content = JSON.parse(al.aliasURI);
@@ -137,17 +176,17 @@ export class DenavasNameSearch extends LitElement {
           match.description = content.ds;
           match.avatar = avatar.length ? avatar[0] : undefined; // IPFS CID
           match.url = content.hp;
-          match.name = content.nm;
         } catch (e) {
           // ignore - not SRC44
         }
         searchResult.matches.push(match);
-        return searchResult;
       }
+      return searchResult;
     } catch (e: any) {
       console.error("[Denavas Search Error] - ", e.message);
       return {
         exactMatch: false,
+        input: name,
         matches: [],
         error: e.message,
       } as SearchResult;

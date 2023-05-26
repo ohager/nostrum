@@ -32,6 +32,7 @@
     "@lit-labs/react": "^1.1.1",
     "lit": "^2.7.4",
     "p-debounce": "^4.0.0",
+    "p-queue": "^7.3.4",
     "tslib": "^2.5.2"
   },
   "publishConfig": {

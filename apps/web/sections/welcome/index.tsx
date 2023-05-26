@@ -21,14 +21,20 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
       // @ts-ignore
       <BaseSection ref={ref} sign="">
         <h2
-          className="relative lg:top-[6rem] top-[6rem] mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text
+          className="relative top-[6rem] mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text
                     bg-gradient-to-r from-green-200 to-pink-300 drop-shadow-xl"
         >
           {text || <span>&nbsp;</span>}
         </h2>
+        {/*<h2*/}
+        {/*  className="relative mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text*/}
+        {/*            bg-gradient-to-r from-green-200 to-pink-300 drop-shadow-xl sm:hidden"*/}
+        {/*>*/}
+        {/*     Decentralized Nostr Accounts*/}
+        {/*</h2>*/}
 
         <Hero>
-          <div className="flex lg:flex-row flex-col">
+          <div className="top-[3rem] flex lg:flex-row flex-col">
             <div className="flex-1 flex flex-col justify-between s p-6">
               <div>
                 <h1 className="text-5xl font-bold">Welcome, Nostrian!</h1>

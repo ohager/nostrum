@@ -1,9 +1,24 @@
+"use client";
 import { FiGithub } from "react-icons/fi";
 import Image from "next/image";
+import { useContext } from "react";
+import { AppContext } from "@/components/appContext";
+import { Fade } from "react-reveal";
+
 export const NavBar = () => {
+  const { SignaSats } = useContext(AppContext);
+
   return (
-    <div className="fixed navbar z-10">
-      <div className="flex-1" />
+    <div className="fixed navbar z-10 flex items-center">
+      <div className="flex-1">
+        {SignaSats && (
+          <Fade>
+            <small className="text-xs text-pink-300">
+              1 SIGNA = {SignaSats} SATS
+            </small>
+          </Fade>
+        )}
+      </div>
       <div className="flex-none">
         <div className="tooltip tooltip-left" data-tip="Github">
           <a

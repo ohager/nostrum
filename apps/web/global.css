@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .text-hero {
+    font-size: 144px;
+  }
+  .text-mobile-hero {
+    font-size: 96px;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+denavas-name-search::part(input) {
+  font-size: 1.5rem;
+  height: 3rem;
+  /*border-bottom-right-radius: unset ;*/
+  /*border-top-right-radius: unset ;*/
+}
+
+denavas-name-search::part(error) {
+}

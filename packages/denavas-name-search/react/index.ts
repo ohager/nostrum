@@ -1,1 +1,1 @@
-export { DenavasNameSearch } from "./DenavasNameSearch";
+export { DenavasNameSearch, type SearchResult } from "./DenavasNameSearch";

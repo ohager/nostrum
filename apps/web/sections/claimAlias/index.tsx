@@ -6,8 +6,6 @@ import { Zoom } from "react-reveal";
 import { Address } from "@signumjs/core";
 import { useAppContext } from "@/hooks/useAppContext";
 import { nip19 } from "nostr-tools";
-import { Typewriter } from "react-simple-typewriter";
-
 const shortenString = (
   str: string,
   trimOffset: number = 12,
@@ -34,7 +32,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
       "queueing alias transfer...",
       "Successfully Done 🦩",
     ];
-    const { Ledger } = useAppContext();
+    const { Ledger, SignaSats } = useAppContext();
     const [claimingPhase, setClaimingPhase] = useState(0);
 
     const handleClaimNow = () => {
@@ -45,7 +43,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const address = useMemo(() => {
       if (!signumPubKey) return "";
       return Address.fromPublicKey(signumPubKey).getReedSolomonAddress(false);
-    }, [Ledger.IsTestnet, signumPubKey]);
+    }, [signumPubKey]);
 
     const npub = useMemo(() => {
       if (!nostrPubKey) return "";
@@ -57,7 +55,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const waitForConnection = name && !(signumPubKey && nostrPubKey);
     const waitForClaim = name && signumPubKey && nostrPubKey;
     const isDone = claimingPhase >= ClaimingPhases.length;
-
+    const satoshi = (12.5 * (SignaSats || 0)).toFixed(0);
     return (
       // @ts-ignore
       <BaseSection ref={ref} sign="③">
@@ -97,8 +95,8 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                       <FiAlertCircle className="opacity-60 mr-2" size={28} />
                       Mind that it's necessary to have a small balance on your
                       Signum Account. Maintaining an Alias costs you 12.5 SIGNA
-                      every three months and will be charged automatically. The
-                      first three months are free!
+                      (≈ {satoshi} SATS) every three months and will be charged
+                      automatically. The first three months are free!
                     </div>
                   </div>
                 </div>
