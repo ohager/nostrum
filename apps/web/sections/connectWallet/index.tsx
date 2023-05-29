@@ -9,7 +9,7 @@ import { GetWalletInstructions } from "./getWalletInstructions";
 import { NoNostrAccountInstructions } from "./noNostrAccountInstructions";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
-import { FiLink2 } from "react-icons/all";
+import { FiLink2 } from "react-icons/fi";
 
 interface Props {
   onConnection: (npub: string, pk: string) => void;
