@@ -14,7 +14,7 @@ export const DenavasNameSearch = createComponent({
   tagName: "denavas-name-search",
   elementClass: WebComponent,
   events: {
-    onSearchStarted: "search-started" as EventName<CustomEvent<void>>,
+    onSearchStarted: "search-started" as EventName<CustomEvent<string>>,
     onSearchDone: "search-done" as EventName<CustomEvent<SearchResultType>>,
     onChange: "change" as EventName<CustomEvent<string>>,
   },

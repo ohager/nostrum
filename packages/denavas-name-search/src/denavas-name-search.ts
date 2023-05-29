@@ -92,7 +92,7 @@ export class DenavasNameSearch extends LitElement {
 
   private handleKeypress(e: KeyboardEvent) {
     const inputElement = e.target as HTMLInputElement;
-    const name = inputElement.value;
+    const name = inputElement.value.toLowerCase();
 
     this.dispatchEvent(
       new CustomEvent("change", {
@@ -116,6 +116,7 @@ export class DenavasNameSearch extends LitElement {
         new CustomEvent("search-started", {
           bubbles: true,
           composed: true,
+          detail: name,
         })
       );
       const result = await this.searchAlias(name);
@@ -130,7 +131,7 @@ export class DenavasNameSearch extends LitElement {
   }
 
   private handleChange(e: InputEvent) {
-    const name = (e.target as HTMLInputElement).value;
+    const name = (e.target as HTMLInputElement).value.toLowerCase();
 
     if (name.length >= 2 && !this.isSearching) {
       this.triggerSearch(name);
@@ -161,13 +162,14 @@ export class DenavasNameSearch extends LitElement {
         if (al.tldName !== Defaults.NamespaceTld) {
           continue;
         }
-        if (al.aliasName === name) {
+        const aliasName = al.aliasName.toLowerCase();
+        if (aliasName === name.toLowerCase()) {
           searchResult.exactMatch = true;
         }
         let match: Match = {
           aliasId: al.alias,
           owner: al.account,
-          aliasName: al.aliasName,
+          aliasName,
         };
         try {
           const content = JSON.parse(al.aliasURI);

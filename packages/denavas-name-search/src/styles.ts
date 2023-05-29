@@ -16,6 +16,10 @@ export const rootStyles = css`
     flex-direction: row;
     align-items: center;
   }
+
+  input {
+    text-transform: lowercase !important;
+  }
 `;
 
 export const inputStyles = css`

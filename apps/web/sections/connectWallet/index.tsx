@@ -9,6 +9,7 @@ import { GetWalletInstructions } from "./getWalletInstructions";
 import { NoNostrAccountInstructions } from "./noNostrAccountInstructions";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
+import { FiLink2 } from "react-icons/all";
 
 interface Props {
   onConnection: (npub: string, pk: string) => void;
@@ -21,6 +22,7 @@ export const ConnectWalletSection = forwardRef<
 >(({ onNext, onConnection }, ref) => {
   const { Ledger, Wallet, AppName, Nostr } = useAppContext();
   const [errorName, setErrorName] = useState("");
+  const [connected, setConnected] = useState(false);
   const { openModal } = useModal();
 
   const Instructions = useMemo(() => {
@@ -60,8 +62,10 @@ export const ConnectWalletSection = forwardRef<
 
       Nostr.PublicKey = npub;
       onConnection(npub, connection.publicKey);
+      setConnected(true);
       onNext();
     } catch (e) {
+      setConnected(false);
       setErrorName(e.name);
     }
   };
@@ -71,15 +75,27 @@ export const ConnectWalletSection = forwardRef<
       <Zoom>
         <Hero>
           <div className="flex lg:flex-row flex-col items-center">
-            <section className="">
+            <section>
               <h1 className="text-5xl font-bold">Your Public Keys</h1>
               <p className="py-6 text-justify">
                 Now you need your <u>public</u> keys. Both your Nostr key and
                 your Signum key. The easiest way is to use the Signum XT Wallet.
               </p>
-              <button className="btn btn-primary" onClick={handleConnect}>
-                Connect
-              </button>
+              <div className="w-full text-center">
+                {!connected ? (
+                  <button
+                    className="btn btn-accent btn-lg"
+                    onClick={handleConnect}
+                  >
+                    <FiLink2 className="mr-2" />
+                    Connect
+                  </button>
+                ) : (
+                  <div className="btn btn-lg bg-gradient-to-bl from-yellow-200 to-green-400 border-none text-gray-700">
+                    Connected!
+                  </div>
+                )}
+              </div>
             </section>
             <section className="flex-shrink-0 m-6">
               {Instructions && (
