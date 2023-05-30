@@ -8,9 +8,8 @@ import { WelcomeSection } from "../sections/welcome";
 
 export default function Page() {
   const chooseNameSectionRef = useRef<HTMLDivElement>();
-  const connectWalletNameSectionRef = useRef<HTMLDivElement>();
+  const connectWalletSectionRef = useRef<HTMLDivElement>();
   const claimAliasSectionRef = useRef<HTMLDivElement>();
-
   const [state, setState] = useState({
     name: "",
     nostrPubKey: "",
@@ -22,6 +21,17 @@ export default function Page() {
       behavior: "smooth",
       top: nextRef.current.offsetTop,
     });
+  };
+
+  const handleGotoConnect = () => {
+    handleNextStep(connectWalletSectionRef);
+  };
+  const handleGotoChooseName = () => {
+    handleNextStep(chooseNameSectionRef);
+  };
+
+  const handleGotoClaimAlias = () => {
+    handleNextStep(claimAliasSectionRef);
   };
 
   const handleConnection = (nostrPubKey: string, signumPubKey: string) => {
@@ -39,6 +49,8 @@ export default function Page() {
     });
   };
 
+  const handleOnClaimed = () => {};
+
   return (
     <div>
       <div
@@ -49,18 +61,24 @@ export default function Page() {
         }}
       >
         <div className="bg-gradient-to-bl from-indigo-500 via-purple-500 to-pink-500 opacity-90">
-          <WelcomeSection onNext={() => handleNextStep(chooseNameSectionRef)} />
+          <WelcomeSection onNext={handleGotoChooseName} />
           <ChooseNameSection
             ref={chooseNameSectionRef}
-            onNext={() => handleNextStep(connectWalletNameSectionRef)}
+            onNext={handleGotoConnect}
             onName={handleName}
           />
           <ConnectWalletSection
-            ref={connectWalletNameSectionRef}
-            onNext={() => handleNextStep(claimAliasSectionRef)}
+            ref={connectWalletSectionRef}
+            onNext={handleGotoClaimAlias}
             onConnection={handleConnection}
           />
-          <ClaimAliasSection ref={claimAliasSectionRef} {...state} />
+          <ClaimAliasSection
+            ref={claimAliasSectionRef}
+            onGotoConnect={handleGotoConnect}
+            onGotoName={handleGotoChooseName}
+            onClaimed={handleOnClaimed}
+            {...state}
+          />
         </div>
       </div>
     </div>

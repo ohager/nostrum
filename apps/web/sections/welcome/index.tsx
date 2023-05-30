@@ -4,8 +4,6 @@ import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
 import { useTypewriter } from "react-simple-typewriter";
 
-// ① ② ③ ④ ⑤ ⑥ ⑦
-
 // eslint-disable-next-line react/display-name
 export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
   ({ onNext }, ref) => {
@@ -39,18 +37,13 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
               <div>
                 <h1 className="text-5xl font-bold">Welcome, Nostrian!</h1>
                 <p className="py-6 text-justify text-2xl">
-                  Get your <u>decentralized</u> NIP05 Nostr Address.
+                  Get your <u>globally decentralized</u> NIP05 Nostr Address.
                 </p>
                 <p className="text-justify text-lg">
                   Claim your very own Nostr Address stored on the Signum
                   Blockchain. Truly decentralized! All you need is a Nostr
                   public key and a Signum Account.
                 </p>
-              </div>
-              <div className="text-center">
-                <button className="btn btn-lg btn-info" onClick={onNext}>
-                  Choose Name
-                </button>
               </div>
             </div>
             <div className="max-w-md mx-auto">
@@ -70,6 +63,11 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
                     <li>② Connect with XT Wallet</li>
                     <li>③ Claim your Name</li>
                   </ul>
+                  <div className="text-center pt-4">
+                    <button className="btn btn-lg btn-info" onClick={onNext}>
+                      Get Started
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

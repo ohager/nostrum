@@ -11,13 +11,13 @@ export const NavBar = () => {
   return (
     <div className="fixed navbar z-10 flex items-center">
       <div className="flex-1">
-        {SignaSats && (
-          <Fade>
-            <small className="text-xs text-pink-300">
-              1 SIGNA = {SignaSats} SATS
-            </small>
-          </Fade>
-        )}
+        {/*{SignaSats && (*/}
+        {/*  <Fade>*/}
+        {/*    <small className="text-xs text-pink-300">*/}
+        {/*      1 SIGNA = {SignaSats} SATS*/}
+        {/*    </small>*/}
+        {/*  </Fade>*/}
+        {/*)}*/}
       </div>
       <div className="flex-none">
         <div className="tooltip tooltip-left" data-tip="Github">

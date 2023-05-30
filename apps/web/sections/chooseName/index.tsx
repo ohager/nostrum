@@ -35,7 +35,7 @@ export const ChooseNameSection = forwardRef<HTMLDivElement, Props & NextProps>(
     const { Ledger } = useAppContext();
     const [status, setStatus] = useState(Status.Idle);
     const [name, setName] = useState("");
-    const [funNames, setFunNames] = useState(sample(Names, 5));
+    const [funNames, setFunNames] = useState(sample(Names, 10));
 
     const handleSearchDone = (value: CustomEvent<SearchResult>) => {
       const data = value.detail;

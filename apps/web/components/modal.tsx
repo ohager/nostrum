@@ -41,11 +41,7 @@ export const Modal = () => {
             animate={{ top: -100, right: 40 }}
             style={{ right: "120px" }}
           >
-            <Image
-              src="/img/ostrich_head.webp"
-              width={100}
-              alt="Howdy Ostrich"
-            />
+            <img src="/img/ostrich_head.webp" width={100} alt="Howdy Ostrich" />
           </motion.div>
         )}
         <div ref={ref} className="modal-box overflow-visible z-10">

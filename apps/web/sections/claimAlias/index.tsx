@@ -6,6 +6,10 @@ import { Zoom } from "react-reveal";
 import { Address } from "@signumjs/core";
 import { useAppContext } from "@/hooks/useAppContext";
 import { nip19 } from "nostr-tools";
+import ReactConfetti from "react-confetti";
+import { useModal } from "@/hooks/useModal";
+import { useWindowSize } from "@/hooks/useWindowSize";
+
 const shortenString = (
   str: string,
   trimOffset: number = 12,
@@ -17,29 +21,64 @@ const shortenString = (
     : str;
 };
 
-// ① ② ③ ④ ⑤ ⑥ ⑦
 interface Props {
   signumPubKey: string;
   nostrPubKey: string;
   name: string;
+  onGotoName: () => void;
+  onGotoConnect: () => void;
+  onClaimed: () => void;
 }
 
 // eslint-disable-next-line react/display-name
 export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
-  ({ signumPubKey, name, nostrPubKey }, ref) => {
+  (
+    { signumPubKey, name, nostrPubKey, onGotoName, onGotoConnect, onClaimed },
+    ref
+  ) => {
     const ClaimingPhases = [
       "creating alias...",
       "queueing alias transfer...",
       "Successfully Done 🦩",
     ];
-    const { Ledger, SignaSats } = useAppContext();
+    const { Ledger } = useAppContext();
     const [claimingPhase, setClaimingPhase] = useState(0);
+    const [runConfetti, setRunConfetti] = useState(false);
+    const { openModal } = useModal();
+    const windowSize = useWindowSize();
 
-    const handleClaimNow = () => {
+    const handleClaimNow = async () => {
       setClaimingPhase(Math.min(claimingPhase + 1, ClaimingPhases.length));
+      const transactionId = await Promise.resolve("1234");
       // TODO:
+      //   onClaimed()
+      setRunConfetti(true);
+      setTimeout(() => {
+        setRunConfetti(false);
+      }, 5_000);
+      openModal({
+        type: "success",
+        title: "Congratulations",
+        text: (
+          <div>
+            <p>
+              You just claimed: <code>{name}</code>
+            </p>
+            <p>
+              Transaction: <code>{transactionId}</code>
+            </p>
+            <p className="pt-2">
+              Your name is being processed by the network and will be fully
+              available in two blocks. Check your wallet for the incoming
+              transactions.
+            </p>
+          </div>
+        ),
+      });
     };
 
+    // const handleOnClaimed = () => {
+    // }
     const address = useMemo(() => {
       if (!signumPubKey) return "";
       return Address.fromPublicKey(signumPubKey).getReedSolomonAddress(false);
@@ -55,10 +94,11 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const waitForConnection = name && !(signumPubKey && nostrPubKey);
     const waitForClaim = name && signumPubKey && nostrPubKey;
     const isDone = claimingPhase >= ClaimingPhases.length;
-    const satoshi = (12.5 * (SignaSats || 0)).toFixed(0);
+
     return (
       // @ts-ignore
       <BaseSection ref={ref} sign="③">
+        <ReactConfetti recycle={runConfetti} width={windowSize.width} />
         <Zoom>
           <Hero>
             <div className="flex flex-col items-center">
@@ -91,13 +131,6 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                       </a>
                       .
                     </p>
-                    <div className="text-left text-xs flex flex-row items-center mb-6">
-                      <FiAlertCircle className="opacity-60 mr-2" size={28} />
-                      Mind that it's necessary to have a small balance on your
-                      Signum Account. Maintaining an Alias costs you 12.5 SIGNA
-                      (≈ {satoshi} SATS) every three months and will be charged
-                      automatically. The first three months are free!
-                    </div>
                   </div>
                 </div>
                 <div className="flex-1 max-w-lg mx-auto items-center pb-6">
@@ -170,12 +203,28 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                 </div>
               </div>
               <div className="text-center">
-                <button
-                  className="btn btn-lg btn-accent"
-                  onClick={handleClaimNow}
-                >
-                  Claim Now!
-                </button>
+                {waitForName && (
+                  <button className="btn btn-lg btn-ghost" onClick={onGotoName}>
+                    Choose Name First!
+                  </button>
+                )}
+                {waitForConnection && (
+                  <button
+                    className="btn btn-lg btn-ghost"
+                    onClick={onGotoConnect}
+                  >
+                    Connect to Wallet First!
+                  </button>
+                )}
+
+                {waitForClaim && (
+                  <button
+                    className="btn btn-lg btn-accent"
+                    onClick={handleClaimNow}
+                  >
+                    Claim Now!
+                  </button>
+                )}
               </div>
             </div>
           </Hero>
