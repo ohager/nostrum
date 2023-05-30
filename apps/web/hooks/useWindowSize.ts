@@ -3,20 +3,22 @@ import { useEffect, useRef, useState } from "react";
 import pDebounce from "p-debounce";
 
 function getDocumentSize() {
-  if (!document) {
+  if (typeof document !== "undefined") {
+    return {
+      height: document.body.clientHeight,
+      width: document.body.clientWidth,
+    };
   }
+
   return {
-    height: document ? document.body.clientHeight : 0, // SSR
-    width: document ? document.body.clientWidth : 0,
+    height: 0,
+    width: 0,
   };
 }
 
 export const useWindowSize = () => {
   const isMounted = useRef<boolean>();
-  const [size, setSize] = useState({
-    height: 0,
-    width: 0,
-  });
+  const [size, setSize] = useState(getDocumentSize());
 
   useEffect(() => {
     isMounted.current = true;
