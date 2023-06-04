@@ -14,5 +14,6 @@ export interface AppContextType {
     NetworkName: "Signum" | "Signum-TESTNET";
     IsTestnet: boolean;
     ExploreBaseUrl: string;
+    AliasTld: string;
   };
 }

@@ -75,6 +75,7 @@ export const ChooseNameSection = forwardRef<HTMLDivElement, Props & NextProps>(
                   onSearchDone={handleSearchDone}
                   onChange={handleOnChange}
                   signumnodeurl={Ledger.DefaultNode}
+                  signumtld={Ledger.AliasTld}
                 />
               </section>
               <section className="flex-shrink-0 m-6">

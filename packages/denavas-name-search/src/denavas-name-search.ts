@@ -2,13 +2,19 @@ import { html, LitElement } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import pDebounce from "p-debounce";
 import PQueue from "p-queue";
-import { errorStyles, inputStyles, loaderStyles, rootStyles } from "./styles";
+import {
+  errorStyles,
+  inputStyles,
+  loaderStyles,
+  rootStyles,
+  tldStyles,
+} from "./styles";
 
 const Defaults = {
   SignumNodeUrl: "https://europe.signum.network",
   PlaceHolder: "Type a name and hit [Enter]",
   ErrorMessage: "Name must contain only letters, numbers and/or underscore",
-  NamespaceTld: "signum", // nostr
+  NamespaceTld: "nostr",
   NamePattern: "^[a-zA-Z0-9_]{1,100}$",
 };
 
@@ -46,7 +52,13 @@ export interface SearchResult {
 
 @customElement("denavas-name-search") // <denavas-name-search />
 export class DenavasNameSearch extends LitElement {
-  static styles = [rootStyles, inputStyles, loaderStyles, errorStyles];
+  static styles = [
+    rootStyles,
+    inputStyles,
+    loaderStyles,
+    tldStyles,
+    errorStyles,
+  ];
 
   @state()
   protected isSearching = false;
@@ -56,6 +68,8 @@ export class DenavasNameSearch extends LitElement {
 
   @property({ type: String })
   signumnodeurl = Defaults.SignumNodeUrl;
+  @property({ type: String })
+  signumtld = Defaults.NamespaceTld;
   @property({ type: String })
   placeholder = Defaults.PlaceHolder;
   @property({ type: String })
@@ -83,6 +97,9 @@ export class DenavasNameSearch extends LitElement {
           <div></div>
           <div></div>
         </div>
+      </div>
+      <div id="tld" part="tld" class="tld" title="Alias Namespace">
+        :${this.signumtld}
       </div>
       <span part="error" class="error"
         >${!this.isNameValid ? this.errormsg : ""}&nbsp;</span
@@ -159,7 +176,7 @@ export class DenavasNameSearch extends LitElement {
         input: name,
       };
       for (let al of aliases) {
-        if (al.tldName !== Defaults.NamespaceTld) {
+        if (al.tldName !== this.signumtld) {
           continue;
         }
         const aliasName = al.aliasName.toLowerCase();

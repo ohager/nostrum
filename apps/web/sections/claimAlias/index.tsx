@@ -1,7 +1,6 @@
 import { Hero } from "@/components/hero";
 import { forwardRef, useMemo, useState } from "react";
 import { BaseSection } from "../baseSection";
-import { FiAlertCircle } from "react-icons/fi";
 import { Zoom } from "react-reveal";
 import { Address } from "@signumjs/core";
 import { useAppContext } from "@/hooks/useAppContext";
@@ -9,6 +8,8 @@ import { nip19 } from "nostr-tools";
 import ReactConfetti from "react-confetti";
 import { useModal } from "@/hooks/useModal";
 import { useWindowSize } from "@/hooks/useWindowSize";
+import { createAlias } from "./createAlias";
+import { transferAlias } from "./transferAlias";
 
 const shortenString = (
   str: string,
@@ -41,44 +42,65 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
       "queueing alias transfer...",
       "Successfully Done 🦩",
     ];
-    const { Ledger } = useAppContext();
+    const { Ledger, Wallet } = useAppContext();
     const [claimingPhase, setClaimingPhase] = useState(0);
+    const [transactionId, setTransactionId] = useState("");
     const [runConfetti, setRunConfetti] = useState(false);
     const { openModal } = useModal();
     const windowSize = useWindowSize();
 
     const handleClaimNow = async () => {
       setClaimingPhase(Math.min(claimingPhase + 1, ClaimingPhases.length));
-      const transactionId = await Promise.resolve("1234");
-      // TODO:
-      //   onClaimed()
-      setRunConfetti(true);
-      setTimeout(() => {
-        setRunConfetti(false);
-      }, 5_000);
-      openModal({
-        type: "success",
-        title: "Congratulations",
-        text: (
-          <div>
-            <p>
-              You just claimed: <code>{name}</code>
-            </p>
-            <p>
-              Transaction: <code>{transactionId}</code>
-            </p>
-            <p className="pt-2">
-              Your name is being processed by the network and will be fully
-              available in two blocks. Check your wallet for the incoming
-              transactions.
-            </p>
-          </div>
-        ),
-      });
+
+      try {
+        setClaimingPhase(0);
+        const { fullHash, aliasId } = await createAlias({
+          name,
+          nodeHost:
+            Wallet.Extension.connection.currentNodeHost || Ledger.DefaultNode,
+          nostrPublicKey: nostrPubKey,
+          signumPublicKey: signumPubKey,
+        });
+        const { transaction } = await transferAlias({
+          aliasId,
+          referencedTransactionFullHash: fullHash,
+          nodeHost:
+            Wallet.Extension.connection.currentNodeHost || Ledger.DefaultNode,
+          signumPublicKey: signumPubKey,
+        });
+        setTransactionId(transaction);
+        setRunConfetti(true);
+        setTimeout(() => {
+          setRunConfetti(false);
+        }, 5_000);
+        openModal({
+          type: "success",
+          title: "Congratulations",
+          text: (
+            <div>
+              <p>
+                You just claimed: <code>{name}</code>
+              </p>
+              <p>
+                Transaction: <code>{transaction}</code>
+              </p>
+              <p className="pt-2">
+                Your name is being processed by the network and will be fully
+                available in two blocks. Check your wallet for the incoming
+                transactions.
+              </p>
+            </div>
+          ),
+        });
+      } catch (e) {
+        openModal({
+          type: "success",
+          title: "Oh no!",
+          text: "Something went wrong! Please try again and eventually inform the developer(s)",
+        });
+      }
     };
 
-    // const handleOnClaimed = () => {
-    // }
     const address = useMemo(() => {
       if (!signumPubKey) return "";
       return Address.fromPublicKey(signumPubKey).getReedSolomonAddress(false);
@@ -192,7 +214,13 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                             >
                               <code>
                                 {ClaimingPhases[claimingPhase - 1]}
-                                {!isDone && <BlinkingCursor />}
+                                {!isDone ? (
+                                  <BlinkingCursor />
+                                ) : (
+                                  <span>
+                                    &nbsp;- Transaction: {transactionId}
+                                  </span>
+                                )}
                               </code>
                             </pre>
                           </>
@@ -217,7 +245,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                   </button>
                 )}
 
-                {waitForClaim && (
+                {waitForClaim && !isDone && (
                   <button
                     className="btn btn-lg btn-accent"
                     onClick={handleClaimNow}

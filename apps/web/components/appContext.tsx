@@ -6,6 +6,7 @@ import { GenericExtensionWallet } from "@signumjs/wallets";
 import { AppContextType } from "@/types/appContextType";
 import { ChildrenProps } from "@/types/childrenProps";
 import { MarketData } from "@/types/marketData";
+import * as process from "process";
 
 const toBoolean = (v) => v === "true" || v === "1";
 
@@ -23,6 +24,7 @@ const context: AppContextType = {
   Ledger: {
     IsTestnet,
     DefaultNode: process.env.NEXT_PUBLIC_DEFAULT_NODE || "",
+    AliasTld: process.env.NEXT_PUBLIC_SIGNUM_TLD || "nostr",
     NetworkName: IsTestnet ? "Signum-TESTNET" : "Signum",
     ExploreBaseUrl: IsTestnet
       ? "https://t-chain.signum.network"

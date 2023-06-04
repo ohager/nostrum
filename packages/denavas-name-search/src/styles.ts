@@ -1,6 +1,10 @@
 import { css } from "lit";
 
 export const rootStyles = css`
+  .root {
+    position: relative;
+  }
+
   .hidden {
     visibility: hidden;
     opacity: 0;
@@ -37,6 +41,17 @@ export const inputStyles = css`
     -webkit-box-shadow: 0 0 15px 0 rgba(235, 18, 18, 1);
     -moz-box-shadow: 0 0 15px 0 rgba(235, 18, 18, 1);
     box-shadow: 0 0 15px 0 rgba(235, 18, 18, 1);
+  }
+`;
+
+export const tldStyles = css`
+  #tld {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+    font: inherit;
+    font-size: 0.66rem;
+    color: darkgray;
   }
 `;
 
