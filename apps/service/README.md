@@ -29,7 +29,12 @@ And then set up the `.env` file accordingly,
 
 ## Run
 
-The service is meant to run using `pm2`
+To run go into the `./apps/service` folder and run `npm start` or `yarn start`
+
+### Production
+
+To run in a production environment we recommend to use `pm2` (process manager).
+The service comes with a pm2 ecosystem file already:
 
 Just run
 
