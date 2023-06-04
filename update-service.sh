@@ -1,4 +1,4 @@
-#! /env/bash
+#!/bin/bash
 git pull
 cd apps/service
 yarn build
