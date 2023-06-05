@@ -1,6 +1,8 @@
 #!/bin/bash
+rm -rf yarn.lock
 git pull
+yarn install --prod
 cd apps/service
-yarn install
 yarn build
-pm2 restart pm2.config.js
+echo "To restart service type:"
+echo "pm2 restart pm2.config.js"
