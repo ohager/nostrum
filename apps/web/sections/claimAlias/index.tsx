@@ -9,6 +9,8 @@ import ReactConfetti from "react-confetti";
 import { useModal } from "@/hooks/useModal";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { createAlias } from "./createAlias";
+import { Simulate } from "react-dom/test-utils";
+import error = Simulate.error;
 
 const shortenString = (
   str: string,
@@ -57,6 +59,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const { Ledger, Wallet } = useAppContext();
     const [claimingPhase, setClaimingPhase] = useState(-1);
     const [runConfetti, setRunConfetti] = useState(false);
+    const [claimError, setClaimError] = useState("");
     const { openModal } = useModal();
     const windowSize = useWindowSize();
 
@@ -105,7 +108,8 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
             </div>
           ),
         });
-      } catch (e) {
+      } catch (e: any) {
+        setClaimError(`Claiming Failed - ${e.message}`);
         openModal({
           type: "error",
           title: "Oh no!",
@@ -138,6 +142,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const waitForClaim = name && signumPubKey && nostrPubKey;
     const isClaiming = claimingPhase !== -1;
     const isDone = claimingPhase >= ClaimingPhases.length - 1;
+    const hasError = claimError.length > 0;
 
     return (
       // @ts-ignore
@@ -223,36 +228,45 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                             </code>
                           </pre>
                         )}
-                        {claimingPhase >= 0 && (
+                        {claimingPhase >= 0 && !hasError && (
                           <>
                             <pre data-prefix="$" className="text-warning">
                               <code>claim now? y</code>
                             </pre>
-                            <pre
-                              data-prefix=">"
-                              className={`${
-                                isDone ? "text-success" : "text-gray-400"
-                              }`}
-                            >
-                              <code>
-                                {ClaimingPhases[claimingPhase]}
-                                {!isDone ? (
+                            {!hasError ? (
+                              <pre
+                                data-prefix=">"
+                                className={`${
+                                  isDone ? "text-success" : "text-gray-400"
+                                }`}
+                              >
+                                <code>
+                                  {ClaimingPhases[claimingPhase]}
+                                  {!isDone ? (
+                                    <BlinkingCursor />
+                                  ) : (
+                                    <>
+                                      &nbsp;-&nbsp;
+                                      <a
+                                        className="link"
+                                        href={`${Ledger.ExploreBaseUrl}/txsPending`}
+                                        rel="noreferrer noopener"
+                                        target="_blank"
+                                      >
+                                        See Explorer
+                                      </a>
+                                    </>
+                                  )}
+                                </code>
+                              </pre>
+                            ) : (
+                              <pre data-prefix=">" className="text-red-500">
+                                <code>
+                                  {claimError}
                                   <BlinkingCursor />
-                                ) : (
-                                  <>
-                                    &nbsp;-&nbsp;
-                                    <a
-                                      className="link"
-                                      href={`${Ledger.ExploreBaseUrl}/txsPending`}
-                                      rel="noreferrer noopener"
-                                      target="_blank"
-                                    >
-                                      See Explorer
-                                    </a>
-                                  </>
-                                )}
-                              </code>
-                            </pre>
+                                </code>
+                              </pre>
+                            )}
                           </>
                         )}
                       </>
@@ -287,9 +301,15 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                     Claim Now!
                   </button>
                 )}
-                {isDone && (
+                {isDone && !hasError && (
                   <button className="btn btn-lg btn-ghost" onClick={onReset}>
                     Reset
+                  </button>
+                )}
+
+                {!hasError && (
+                  <button className="btn btn-lg btn-ghost" onClick={onReset}>
+                    Retry
                   </button>
                 )}
               </div>

@@ -3,7 +3,16 @@ import { getLedger } from "../getLedger";
 import * as process from "process";
 import { getSigningKeys } from "../getSigningKeys";
 import { Amount } from "@signumjs/util";
-import { Address, TransactionId } from "@signumjs/core";
+import { Address, Ledger, TransactionId } from "@signumjs/core";
+
+async function isNodeReachable(ledger: Ledger) {
+  try {
+    await ledger.network.getMiningInfo();
+    return true;
+  } catch (e: any) {
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -17,7 +26,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const ledger = getLedger(nodeHost);
+    let ledger = getLedger(nodeHost);
+    const isReachable = await isNodeReachable(ledger);
+    if (!isReachable) {
+      // eslint-disable-next-line turbo/no-undeclared-env-vars
+      ledger = getLedger(process.env.NEXT_PUBLIC_DEFAULT_NODE);
+    }
+
     const { signPrivateKey, publicKey } = getSigningKeys();
     const address = Address.fromPublicKey(signumPublicKey);
     const aliasURI = JSON.stringify({
