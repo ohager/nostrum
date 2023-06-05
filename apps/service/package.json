@@ -7,7 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "rimraf ./dist && tsc",
+    "build": "tsc",
+    "dist": "rimraf ./dist && tsc",
     "start": "node -r dotenv/config ./dist/index.js",
     "dev": "ts-node -r dotenv/config ./src/index.ts dotenv_config_path=.env.local dotenv_config_debug=true"
   },
