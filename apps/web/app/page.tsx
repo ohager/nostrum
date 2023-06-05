@@ -35,6 +35,7 @@ export default function Page() {
   };
 
   const handleOnReset = () => {
+    // @ts-ignore
     window.scrollTo({ behavior: "instant", top: 0 });
     window.location.reload();
   };
