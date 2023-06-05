@@ -3,9 +3,10 @@ import Image from "next/image";
 import { useContext } from "react";
 import { AppContext } from "@/components/appContext";
 import { BsGithub, BsDiscord, BsTelegram } from "react-icons/bs";
+import { Stamp } from "@/components/stamp";
 
 export const NavBar = () => {
-  const { SignaSats } = useContext(AppContext);
+  const { SignaSats, Ledger } = useContext(AppContext);
 
   return (
     <div className="fixed navbar z-10 flex items-center">
@@ -18,6 +19,11 @@ export const NavBar = () => {
         {/*  </Fade>*/}
         {/*)}*/}
       </div>
+      {Ledger.IsTestnet && (
+        <div className="flex-1">
+          <Stamp label="Testnet" />
+        </div>
+      )}
       <div className="flex-none">
         <div className="tooltip tooltip-left" data-tip="Github">
           <a
