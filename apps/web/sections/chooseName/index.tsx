@@ -1,11 +1,4 @@
-import React, {
-  createRef,
-  forwardRef,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import { BaseSection } from "../baseSection";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";

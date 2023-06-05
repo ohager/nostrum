@@ -9,7 +9,6 @@ import ReactConfetti from "react-confetti";
 import { useModal } from "@/hooks/useModal";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { createAlias } from "./createAlias";
-import { transferAlias } from "./transferAlias";
 
 const shortenString = (
   str: string,
@@ -29,12 +28,25 @@ interface Props {
   onGotoName: () => void;
   onGotoConnect: () => void;
   onClaimed: () => void;
+  onReset: () => void;
+}
+
+function sleep(millies) {
+  return new Promise((resolve) => setTimeout(resolve, millies));
 }
 
 // eslint-disable-next-line react/display-name
 export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
   (
-    { signumPubKey, name, nostrPubKey, onGotoName, onGotoConnect, onClaimed },
+    {
+      signumPubKey,
+      name,
+      nostrPubKey,
+      onGotoName,
+      onGotoConnect,
+      onClaimed,
+      onReset,
+    },
     ref
   ) => {
     const ClaimingPhases = [
@@ -43,24 +55,25 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
       "Successfully Done 🦩",
     ];
     const { Ledger, Wallet } = useAppContext();
-    const [claimingPhase, setClaimingPhase] = useState(0);
-    const [transactionId, setTransactionId] = useState("");
+    const [claimingPhase, setClaimingPhase] = useState(-1);
     const [runConfetti, setRunConfetti] = useState(false);
     const { openModal } = useModal();
     const windowSize = useWindowSize();
 
     const handleClaimNow = async () => {
-      setClaimingPhase(Math.min(claimingPhase + 1, ClaimingPhases.length));
-
       try {
         setClaimingPhase(0);
-        const { aliasId } = await createAlias({
+        await createAlias({
           name,
           nodeHost:
             Wallet.Extension.connection.currentNodeHost || Ledger.DefaultNode,
           nostrPublicKey: nostrPubKey,
           signumPublicKey: signumPubKey,
         });
+        await sleep(1_000); // artificial delay
+        setClaimingPhase(1);
+        await sleep(1_500);
+        setClaimingPhase(2);
         setRunConfetti(true);
         setTimeout(() => {
           setRunConfetti(false);
@@ -70,8 +83,10 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
           title: "Congratulations 🎉",
           text: (
             <div>
-              <p>
+              <p className="border rounded text-lg px-4 py-2">
                 You just claimed: <code>{name}</code>
+              </p>
+              <p className="pt-2">
                 Your NIP05 Nostr Names are:
                 <ul>
                   <li>
@@ -99,9 +114,17 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
       }
     };
 
-    const address = useMemo(() => {
-      if (!signumPubKey) return "";
-      return Address.fromPublicKey(signumPubKey).getReedSolomonAddress(false);
+    const { address, accountId } = useMemo(() => {
+      if (!signumPubKey)
+        return {
+          address: "",
+          accountId: "",
+        };
+      const a = Address.fromPublicKey(signumPubKey);
+      return {
+        address: a.getReedSolomonAddress(false),
+        accountId: a.getNumericId(),
+      };
     }, [signumPubKey]);
 
     const npub = useMemo(() => {
@@ -113,7 +136,8 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const waitForName = !name;
     const waitForConnection = name && !(signumPubKey && nostrPubKey);
     const waitForClaim = name && signumPubKey && nostrPubKey;
-    const isDone = claimingPhase >= ClaimingPhases.length;
+    const isClaiming = claimingPhase !== -1;
+    const isDone = claimingPhase >= ClaimingPhases.length - 1;
 
     return (
       // @ts-ignore
@@ -191,7 +215,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                         <pre data-prefix=">" className="">
                           <code>signum: {address}</code>
                         </pre>
-                        {claimingPhase === 0 && (
+                        {claimingPhase === -1 && (
                           <pre data-prefix="$" className="text-warning">
                             <code>
                               claim now?
@@ -199,7 +223,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                             </code>
                           </pre>
                         )}
-                        {claimingPhase > 0 && (
+                        {claimingPhase >= 0 && (
                           <>
                             <pre data-prefix="$" className="text-warning">
                               <code>claim now? y</code>
@@ -211,13 +235,21 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                               }`}
                             >
                               <code>
-                                {ClaimingPhases[claimingPhase - 1]}
+                                {ClaimingPhases[claimingPhase]}
                                 {!isDone ? (
                                   <BlinkingCursor />
                                 ) : (
-                                  <span>
-                                    &nbsp;- Transaction: {transactionId}
-                                  </span>
+                                  <>
+                                    &nbsp;-&nbsp;
+                                    <a
+                                      className="link"
+                                      href={`${Ledger.ExploreBaseUrl}/txsPending`}
+                                      rel="noreferrer noopener"
+                                      target="_blank"
+                                    >
+                                      See Explorer
+                                    </a>
+                                  </>
                                 )}
                               </code>
                             </pre>
@@ -247,8 +279,17 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                   <button
                     className="btn btn-lg btn-accent"
                     onClick={handleClaimNow}
+                    disabled={isClaiming}
                   >
+                    {isClaiming && (
+                      <span className="loading loading-spinner"></span>
+                    )}
                     Claim Now!
+                  </button>
+                )}
+                {isDone && (
+                  <button className="btn btn-lg btn-ghost" onClick={onReset}>
+                    Reset
                   </button>
                 )}
               </div>

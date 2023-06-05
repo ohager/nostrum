@@ -1,9 +1,8 @@
 "use client";
-import { FiGithub } from "react-icons/fi";
 import Image from "next/image";
 import { useContext } from "react";
 import { AppContext } from "@/components/appContext";
-import { Fade } from "react-reveal";
+import { BsGithub, BsDiscord, BsTelegram } from "react-icons/bs";
 
 export const NavBar = () => {
   const { SignaSats } = useContext(AppContext);
@@ -27,10 +26,33 @@ export const NavBar = () => {
             rel="noreferrer noopener"
             target="_blank"
           >
-            <FiGithub size={20} />
+            <BsGithub size={20} />
           </a>
         </div>
-        <div className="tooltip tooltip-left" data-tip="Signum Network">
+        <div className="tooltip tooltip-left" data-tip="Signum Discord">
+          <a
+            href="https://discord.gg/b8Xm4KtHdU"
+            className="btn btn-square btn-ghost btn-xl"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            <BsDiscord size={20} />
+          </a>
+        </div>
+        <div className="tooltip tooltip-left" data-tip="Signum Telegram">
+          <a
+            href="https://t.me/signumnetwork"
+            className="btn btn-square btn-ghost btn-xl"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            <BsTelegram size={20} />
+          </a>
+        </div>
+        <div
+          className="tooltip tooltip-left"
+          data-tip="Signum Network Home Page"
+        >
           <a
             href="https://signum.network"
             className="btn btn-square btn-ghost btn-xl"

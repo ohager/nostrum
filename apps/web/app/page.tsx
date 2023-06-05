@@ -34,6 +34,11 @@ export default function Page() {
     handleNextStep(claimAliasSectionRef);
   };
 
+  const handleOnReset = () => {
+    window.scrollTo({ top: 0 });
+    window.location.reload();
+  };
+
   const handleConnection = (nostrPubKey: string, signumPubKey: string) => {
     setState({
       ...state,
@@ -77,6 +82,7 @@ export default function Page() {
             onGotoConnect={handleGotoConnect}
             onGotoName={handleGotoChooseName}
             onClaimed={handleOnClaimed}
+            onReset={handleOnReset}
             {...state}
           />
         </div>

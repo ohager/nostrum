@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { BaseSection } from "../baseSection";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
-import { useTypewriter } from "react-simple-typewriter";
+import { Typewriter, useTypewriter } from "react-simple-typewriter";
 
 // eslint-disable-next-line react/display-name
 export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
@@ -19,18 +19,11 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
       // @ts-ignore
       <BaseSection ref={ref} sign="">
         <h2
-          className="relative top-[6rem] mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text
-                    bg-gradient-to-r from-green-200 to-pink-300 drop-shadow-xl"
+          className="relative top-[2rem] lg:top-[6rem] mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text
+                      bg-gradient-to-r from-green-200 to-pink-300 drop-shadow-xl hidden md:block"
         >
           {text || <span>&nbsp;</span>}
         </h2>
-        {/*<h2*/}
-        {/*  className="relative mx-auto max-w-4xl text-6xl text-center font-extrabold text-transparent bg-clip-text*/}
-        {/*            bg-gradient-to-r from-green-200 to-pink-300 drop-shadow-xl sm:hidden"*/}
-        {/*>*/}
-        {/*     Decentralized Nostr Accounts*/}
-        {/*</h2>*/}
-
         <Hero>
           <div className="top-[3rem] flex lg:flex-row flex-col">
             <div className="flex-1 flex flex-col justify-between s p-6">

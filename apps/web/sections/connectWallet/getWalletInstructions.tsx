@@ -1,5 +1,5 @@
 import { detect } from "detect-browser";
-import { FiHelpCircle, FiAlertTriangle } from "react-icons/fi";
+import { BsQuestionCircle, BsExclamationTriangle } from "react-icons/bs";
 import { useMemo } from "react";
 
 function GetXTUrl(): string {
@@ -38,7 +38,7 @@ export const GetWalletInstructions = () => {
           ></iframe>
         </div>
         <div className="link text-left text-xs flex flex-row items-center mb-6">
-          <FiHelpCircle className="opacity-60 mr-2" size={28} />
+          <BsQuestionCircle className="opacity-60 mr-2" size={28} />
           <a
             href="https://www.youtube.com/watch?v=MRlj90ZA2Dc"
             target="_blank"
@@ -61,7 +61,7 @@ export const GetWalletInstructions = () => {
         ) : (
           <div className="alert alert-warning shadow-lg">
             <div>
-              <FiAlertTriangle className="opacity-60" size={48} />
+              <BsExclamationTriangle className="opacity-60" size={48} />
               <span>
                 Only Chromium-based browsers and Firefox are supported
               </span>
