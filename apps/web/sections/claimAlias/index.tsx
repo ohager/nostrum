@@ -54,35 +54,33 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
 
       try {
         setClaimingPhase(0);
-        const { fullHash, aliasId } = await createAlias({
+        const { aliasId } = await createAlias({
           name,
           nodeHost:
             Wallet.Extension.connection.currentNodeHost || Ledger.DefaultNode,
           nostrPublicKey: nostrPubKey,
           signumPublicKey: signumPubKey,
         });
-        const { transaction } = await transferAlias({
-          aliasId,
-          referencedTransactionFullHash: fullHash,
-          nodeHost:
-            Wallet.Extension.connection.currentNodeHost || Ledger.DefaultNode,
-          signumPublicKey: signumPubKey,
-        });
-        setTransactionId(transaction);
         setRunConfetti(true);
         setTimeout(() => {
           setRunConfetti(false);
         }, 5_000);
         openModal({
           type: "success",
-          title: "Congratulations",
+          title: "Congratulations 🎉",
           text: (
             <div>
               <p>
                 You just claimed: <code>{name}</code>
-              </p>
-              <p>
-                Transaction: <code>{transaction}</code>
+                Your NIP05 Nostr Names are:
+                <ul>
+                  <li>
+                    <b>{name}@signum.network</b>
+                  </li>
+                  <li>
+                    <b>{name}@nostrum.network</b>
+                  </li>
+                </ul>
               </p>
               <p className="pt-2">
                 Your name is being processed by the network and will be fully
@@ -94,7 +92,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
         });
       } catch (e) {
         openModal({
-          type: "success",
+          type: "error",
           title: "Oh no!",
           text: "Something went wrong! Please try again and eventually inform the developer(s)",
         });

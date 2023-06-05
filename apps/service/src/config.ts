@@ -31,4 +31,21 @@ export const config = convict({
     default: "",
     env: "GIVEAWAY_ACCOUNT_SECRET",
   },
+  loggerType: {
+    format: ["console", "full"],
+    default: "console",
+    env: "LOGGER_TYPE",
+  },
+  logzio: {
+    token: {
+      env: "LOGZIO_TOKEN",
+      format: String,
+      default: "",
+    },
+    isVerbose: {
+      env: "LOGZIO_VERBOSE",
+      format: Boolean,
+      default: false,
+    },
+  },
 });

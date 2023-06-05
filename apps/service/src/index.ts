@@ -1,15 +1,21 @@
 /* eslint-disable turbo/no-undeclared-env-vars */
 import { ChainWalker } from "signum-chain-walker";
-import { transactionHandler } from "./transansactionHandler";
+import { createTransactionHandler } from "./transactionHandler";
 import { config } from "./config";
-const walker = new ChainWalker({
-  nodeHost: config.get("nodeHost"),
-}).onTransaction(transactionHandler);
+import { logger } from "./logger";
 
 (async () => {
   try {
+    const nodeHost = config.get("nodeHost");
+    const walker = new ChainWalker({
+      nodeHost,
+    });
+    logger.log({
+      msg: `Starting DeNAVAS Listener Service for host ${nodeHost}...`,
+    });
+    walker.onTransaction(createTransactionHandler(walker.ledgerClient));
     await walker.listen();
-  } catch (e) {
-    console.log("Error", e);
+  } catch (e: any) {
+    logger.error(e.message);
   }
 })();

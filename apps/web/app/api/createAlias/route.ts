@@ -24,6 +24,7 @@ export async function POST(request: Request) {
       vs: 1,
       ac: address.getNumericId(),
       xnostr: nostrPublicKey,
+      xpk: signumPublicKey,
     });
 
     const { fullHash, transaction } = (await ledger.alias.setAlias({
