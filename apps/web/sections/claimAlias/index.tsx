@@ -228,7 +228,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                             </code>
                           </pre>
                         )}
-                        {claimingPhase >= 0 && !hasError && (
+                        {claimingPhase >= 0 && (
                           <>
                             <pre data-prefix="$" className="text-warning">
                               <code>claim now? y</code>
@@ -289,7 +289,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                   </button>
                 )}
 
-                {waitForClaim && !isDone && (
+                {waitForClaim && !isDone && !hasError && (
                   <button
                     className="btn btn-lg btn-accent"
                     onClick={handleClaimNow}
@@ -307,7 +307,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                   </button>
                 )}
 
-                {!hasError && (
+                {hasError && (
                   <button className="btn btn-lg btn-ghost" onClick={onReset}>
                     Retry
                   </button>
