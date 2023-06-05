@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "dist": "rimraf ./dist && tsc",
+    "dist": "npm run build && rimraf ./dist && cp-r ./build ./dist",
     "start": "node -r dotenv/config ./dist/index.js",
     "dev": "ts-node -r dotenv/config ./src/index.ts dotenv_config_path=.env.local dotenv_config_debug=true"
   },
