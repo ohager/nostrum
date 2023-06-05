@@ -17,12 +17,12 @@ For deployment on your server run the following commands:
 
 ```bash
 git clone --no-checkout --depth=1 https://github.com/ohager/denavas.git
+cd denavas
 git sparse-checkout init --cone
 git sparse-checkout set apps/service
 cd apps/service
 cp .env.example .env
 yarn install --prod
-yarn build
 ```
 
 And then set up the `.env` file accordingly,
