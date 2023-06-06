@@ -74,6 +74,8 @@ export class DenavasNameSearch extends LitElement {
   placeholder = Defaults.PlaceHolder;
   @property({ type: String })
   errormsg = Defaults.ErrorMessage;
+  @property({ type: String })
+  value = "";
 
   constructor() {
     super();
@@ -89,6 +91,7 @@ export class DenavasNameSearch extends LitElement {
           pattern="^[a-zA-Z0-9_]{1,100}$"
           maxlength="100"
           placeholder=${this.placeholder}
+          value=""
           @change=${this.handleChange}
           @blur=${this.handleChange}
           @keyup=${this.handleKeypress}
