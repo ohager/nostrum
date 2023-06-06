@@ -5059,6 +5059,11 @@ pretty-format@^29.0.0, pretty-format@^29.5.0:
     ansi-styles "^5.0.0"
     react-is "^18.0.0"
 
+pretty-print-json@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/pretty-print-json/-/pretty-print-json-2.0.1.tgz#818d3a856631fac3cf6a9ec7a0e3d4d42629365e"
+  integrity sha512-kDiEG//bN/UQlAmuu1K9XQLiGxyZN2PW9j2HXVvZ/P3tY+uk2F/Ap+HjoPeDsUmEUSlOxXe/j9yNCAZ2htIIyA==
+
 process-warning@^2.0.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/process-warning/-/process-warning-2.2.0.tgz#008ec76b579820a8e5c35d81960525ca64feb626"

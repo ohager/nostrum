@@ -1,24 +1,15 @@
 import "./style.css";
-import javascriptLogo from "./javascript.svg";
-import viteLogo from "/vite.svg";
-import { setupCounter } from "./counter.js";
+import { setupNameSearch } from "./search.js";
+import "nostrum-name-search";
 
 document.querySelector("#app").innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
+  <div class="mx-auto max-w-lg mt-[12%]">
+    <h1 class="text-4xl text-center my-4 w-full">Hello Nostrum Search!</h1>
+    <nostrum-name-search id="name-search"></nostrum-name-search>
+    <div id="output" class="mockup-code">
+    <pre data-prefix="$"><code>type something...</code></pre>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
   </div>
 `;
 
-setupCounter(document.querySelector("#counter"));
+setupNameSearch(document.querySelector("#name-search"));

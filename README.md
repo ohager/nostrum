@@ -21,4 +21,4 @@ This Turborepo includes the following packages/apps:
 
 - `apps/web`: Web App to claim Nostr Account Names
 - `apps/service`: Backend Chain Listener to enable chained transactions, i.e. transfers alias to claiming user
-- `packeages/denavas-name-search` - Reusable Web Component for User Search (framework agnostic)
+- `packages/nostrum-name-search` - Reusable Web Component for User Search (framework agnostic)

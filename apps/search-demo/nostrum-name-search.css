@@ -1,0 +1,14 @@
+/* styling options for nostrum-name-search component */
+
+nostrum-name-search::part(input) {
+  font-size: 1.25rem;
+  height: 3rem;
+  border: #535bf2 2px solid;
+}
+
+nostrum-name-search::part(error) {
+}
+
+nostrum-name-search::part(tld) {
+  color: #747bff;
+}

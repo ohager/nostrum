@@ -8,6 +8,10 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "dependencies": {
+    "nostrum-name-search": "*",
+    "pretty-print-json": "^2.0.1"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.0.3",

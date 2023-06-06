@@ -39,6 +39,7 @@ interface Match {
   owner: string;
   description?: string;
   nostrPublicKey?: string;
+  nostrRelays?: string[];
   url?: string;
   avatar?: string;
 }
@@ -50,7 +51,7 @@ export interface SearchResult {
   matches: Match[];
 }
 
-@customElement("denavas-name-search") // <denavas-name-search />
+@customElement("nostrum-name-search")
 export class NostrumNameSearch extends LitElement {
   static styles = [
     rootStyles,
@@ -195,6 +196,7 @@ export class NostrumNameSearch extends LitElement {
           const content = JSON.parse(al.aliasURI);
           const avatar = content.av ? Object.keys(content.av) : [];
           match.nostrPublicKey = content.xnostr;
+          match.nostrRelays = content.xnsrel || [];
           match.description = content.ds;
           match.avatar = avatar.length ? avatar[0] : undefined; // IPFS CID
           match.url = content.hp;
@@ -205,7 +207,7 @@ export class NostrumNameSearch extends LitElement {
       }
       return searchResult;
     } catch (e: any) {
-      console.error("[Denavas Search Error] - ", e.message);
+      console.error("[Nostrum Search Error] - ", e.message);
       return {
         exactMatch: false,
         input: name,
@@ -220,6 +222,6 @@ export class NostrumNameSearch extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "denavas-name-search": NostrumNameSearch;
+    "nostrum-name-search": NostrumNameSearch;
   }
 }
