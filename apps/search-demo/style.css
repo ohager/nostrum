@@ -6,3 +6,14 @@
 .json-mark {
   color: hsl(var(--nc) / var(--tw-text-opacity));
 }
+
+.watermark {
+  position: fixed;
+  opacity: 0.02;
+  background-image: url("./signum-logo.svg");
+  top: -128px;
+  left: -128px;
+  width: 800px;
+  height: 800px;
+  fill: #9ca3af;
+}
