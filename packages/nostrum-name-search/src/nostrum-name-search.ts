@@ -176,8 +176,8 @@ export class NostrumNameSearch extends LitElement {
       const { aliases } = json as AliasList;
       let searchResult: SearchResult = {
         exactMatch: false,
-        matches: [],
         input: name,
+        matches: [],
       };
       for (let al of aliases) {
         if (al.tldName !== this.signumtld) {
