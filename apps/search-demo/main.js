@@ -32,4 +32,5 @@ document.querySelector("#app").innerHTML = `
   </div>
 `;
 
+// And here we interact with the component
 setupNameSearch(document.querySelector("#name-search"));

@@ -18,9 +18,17 @@ function renderResult(result) {
 `;
 }
 
+function renderEmptyName() {
+  getOutputElement().innerHTML = `<pre data-prefix="$"><code>type something...</code></pre>`;
+}
+
 export function setupNameSearch(element) {
   // just in case you want to react on change
-  element.addEventListener("change", console.log);
+  element.addEventListener("change", (e) => {
+    if (!e.detail) {
+      renderEmptyName();
+    }
+  });
 
   // Start Searching Event
   element.addEventListener("search-started", (e) => {
