@@ -196,7 +196,7 @@ export class NostrumNameSearch extends LitElement {
           const content = JSON.parse(al.aliasURI);
           const avatar = content.av ? Object.keys(content.av) : [];
           match.nostrPublicKey = content.xnostr;
-          match.nostrRelays = content.xnsrel || [];
+          match.nostrRelays = content.xnsrel;
           match.description = content.ds;
           match.avatar = avatar.length ? avatar[0] : undefined; // IPFS CID
           match.url = content.hp;
