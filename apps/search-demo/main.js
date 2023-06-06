@@ -6,10 +6,10 @@ document.querySelector("#app").innerHTML = `
   <div class="relative mx-auto max-w-lg mt-[12%] h-fit">
     <div class="watermark"></div>
     <div class="fixed right-2 top-2 w-[24px] opacity-80 hover:opacity-90 transition-opacity">
-    <a href="https://github.com/ohager/nostrum" target="_blank" rel="noopener noreferrer">
-    <img src="github-logo.svg" alt="Github Logo">
-</a>
-</div>
+      <a href="https://github.com/ohager/nostrum" target="_blank" rel="noopener noreferrer">
+          <img src="/github-logo.svg" alt="Github Logo">
+      </a>
+    </div>
     <h1 class="text-4xl text-center my-4 w-full">Nostrum Search Demo!</h1>
     <p class="text-xs text-info opacity-50 py-4">
     This app demonstrates how to use the Nostr Name Search web component. It fetches a so-called
@@ -17,9 +17,9 @@ document.querySelector("#app").innerHTML = `
     search for <a class="link" href="https://github.com/nostr-protocol/nips/blob/master/05.md" rel="noreferrer noopener" target="_blank">Nostr NIP05 identifiers</a> without relying on relays, i.e. a global decentralized registry
     for Nostr accounts.
     </p>
+    <!-- here we use the web component -->
     <nostrum-name-search id="name-search" signumtld="signum"></nostrum-name-search>
     <div class="relative">
-    
     <div id="output" class="mockup-code text-sm">
         <pre data-prefix="$"><code>type something...</code></pre>
     </div>

@@ -10,7 +10,7 @@
 .watermark {
   position: fixed;
   opacity: 0.02;
-  background-image: url("./signum-logo.svg");
+  background-image: url("../signum-logo.svg");
   top: -128px;
   left: -128px;
   width: 800px;
