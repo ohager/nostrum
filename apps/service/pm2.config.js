@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "denavas-service",
+      name: "nostrum-service",
       script: "./dist/index.js",
       node_args: "-r dotenv/config",
       env: {

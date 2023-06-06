@@ -1,7 +1,7 @@
 {
   "name": "service",
   "version": "1.0.0",
-  "description": "The background service for alias creation and transfer",
+  "description": "The Nostrum background service for alias creation and transfer",
   "main": "./dist/index.js",
   "author": "ohager",
   "license": "MIT",

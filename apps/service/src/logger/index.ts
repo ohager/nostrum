@@ -43,7 +43,7 @@ export const logger =
           isVerbose: config.get("logzio.isVerbose"),
           token: config.get("logzio.token"),
           extraFields: {
-            app: "denavas-service",
+            app: "nostrum-service",
             testnet: config.get("isTestnet"),
           },
         } as LogzLoggerConfig,
