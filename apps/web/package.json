@@ -19,7 +19,7 @@
     "@signumjs/util": "^1.0.0-rc.70",
     "@signumjs/wallets": "^1.0.0-rc.70",
     "daisyui": "^2.51.6",
-    "denavas-name-search": "*",
+    "nostrum-name-search": "*",
     "detect-browser": "^5.3.0",
     "framer-motion": "^10.12.12",
     "lodash.sample": "^4.2.1",

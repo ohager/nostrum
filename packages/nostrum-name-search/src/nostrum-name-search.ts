@@ -51,7 +51,7 @@ export interface SearchResult {
 }
 
 @customElement("denavas-name-search") // <denavas-name-search />
-export class DenavasNameSearch extends LitElement {
+export class NostrumNameSearch extends LitElement {
   static styles = [
     rootStyles,
     inputStyles,
@@ -91,7 +91,7 @@ export class DenavasNameSearch extends LitElement {
           pattern="^[a-zA-Z0-9_]{1,100}$"
           maxlength="100"
           placeholder=${this.placeholder}
-          value=""
+          value=${this.value}
           @change=${this.handleChange}
           @blur=${this.handleChange}
           @keyup=${this.handleKeypress}
@@ -220,6 +220,6 @@ export class DenavasNameSearch extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    "denavas-name-search": DenavasNameSearch;
+    "denavas-name-search": NostrumNameSearch;
   }
 }

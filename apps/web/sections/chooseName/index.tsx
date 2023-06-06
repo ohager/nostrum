@@ -3,7 +3,7 @@ import { BaseSection } from "../baseSection";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
 import { Zoom } from "react-reveal";
-import { DenavasNameSearch, SearchResult } from "denavas-name-search/react";
+import { NostrumNameSearch, SearchResult } from "nostrum-name-search/react";
 import { useAppContext } from "@/hooks/useAppContext";
 import { NameAvailableCard } from "./nameAvailableCard";
 import { NameNotAvailableCard } from "./nameNotAvailableCard";
@@ -63,7 +63,7 @@ export const ChooseNameSection = forwardRef<HTMLDivElement, Props & NextProps>(
                   be able to find you, regardless of what relays you or others
                   use - <u>a true global name.</u>
                 </p>
-                <DenavasNameSearch
+                <NostrumNameSearch
                   ref={inputRef}
                   onSearchDone={handleSearchDone}
                   onChange={handleOnChange}

@@ -4,14 +4,14 @@
 import React from "react";
 import { createComponent, EventName } from "@lit-labs/react";
 import {
-  DenavasNameSearch as WebComponent,
+  NostrumNameSearch as WebComponent,
   SearchResult as SearchResultType,
-} from "../src/denavas-name-search";
+} from "../src/nostrum-name-search";
 
 export type SearchResult = SearchResultType;
-export const DenavasNameSearch = createComponent({
+export const NostrumNameSearch = createComponent({
   react: React,
-  tagName: "denavas-name-search",
+  tagName: "nostrum-name-search",
   elementClass: WebComponent,
   events: {
     onSearchStarted: "search-started" as EventName<CustomEvent<string>>,

@@ -1,5 +1,5 @@
 {
-  "name": "denavas-name-search",
+  "name": "nostrum-name-search",
   "version": "1.0.0",
   "description": "The reusable name search web component for cross-relay Nostr Name Search on top of the Signum Blockchain Platform",
   "keywords": [
@@ -8,8 +8,10 @@
     "web3",
     "signum",
     "nip05",
-    "blokchain",
-    "signum network"
+    "blockchain",
+    "signum network",
+    "decentralized",
+    "identity"
   ],
   "main": "index.ts",
   "type": "module",
@@ -26,7 +28,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ohager/denavas.git",
-    "directory": "packages/denavas-name-search"
+    "directory": "packages/nostrum-name-search"
   },
   "license": "MIT",
   "scripts": {
@@ -51,6 +53,6 @@
     "esbuild": "^0.17.19"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^17.0.0 || ^18.0.0"
   }
 }
