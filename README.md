@@ -1,4 +1,6 @@
-# DeNAVAS - Decentralized Nostr Accounts Validation and Search
+# Nostrum
+
+> Decentralized Nostr Accounts Validation and Search
 
 This project is about solving some issues with Nostr Accounts.
 
@@ -21,4 +23,5 @@ This Turborepo includes the following packages/apps:
 
 - `apps/web`: Web App to claim Nostr Account Names
 - `apps/service`: Backend Chain Listener to enable chained transactions, i.e. transfers alias to claiming user
+- `apps/search-demo`: A vanilla (using Vite) Demo Web App to show how to use the `nostrum-name-search` web component
 - `packages/nostrum-name-search` - Reusable Web Component for User Search (framework agnostic)
