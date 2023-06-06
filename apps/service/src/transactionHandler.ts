@@ -1,10 +1,8 @@
 import {
   Address,
-  AttachmentMessage,
   Ledger,
   Transaction,
   TransactionArbitrarySubtype,
-  TransactionId,
   TransactionType,
 } from "@signumjs/core";
 import { logger } from "./logger";

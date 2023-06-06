@@ -1,4 +1,4 @@
-# Denavas Backend Service
+# Nostrum Backend Service
 
 This service looks if an Alias Claim Request is available and processes it.
 
@@ -16,8 +16,8 @@ This service looks if an Alias Claim Request is available and processes it.
 For deployment on your server run the following commands:
 
 ```bash
-git clone --no-checkout --depth=1 https://github.com/ohager/denavas.git
-cd denavas
+git clone --no-checkout --depth=1 https://github.com/ohager/nostrum.git
+cd nostrum
 git sparse-checkout init --cone
 git sparse-checkout set apps/service
 cd apps/service

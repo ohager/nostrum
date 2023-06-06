@@ -11,7 +11,7 @@ import { logger } from "./logger";
       nodeHost,
     });
     logger.log({
-      msg: `Starting DeNAVAS Listener Service for host ${nodeHost}...`,
+      msg: `Starting Nostrum Listener Service for host ${nodeHost}...`,
     });
     walker.onTransaction(createTransactionHandler(walker.ledgerClient));
     await walker.listen();

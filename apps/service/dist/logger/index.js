@@ -67,7 +67,7 @@ exports.logger =
           isVerbose: config_1.config.get("logzio.isVerbose"),
           token: config_1.config.get("logzio.token"),
           extraFields: {
-            app: "denavas-service",
+            app: "nostrum-service",
             testnet: config_1.config.get("isTestnet"),
           },
         },

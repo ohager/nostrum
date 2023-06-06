@@ -12,7 +12,7 @@ const logger_1 = require("./logger");
       nodeHost,
     });
     logger_1.logger.log({
-      msg: `Starting DeNAVAS Listener Service for host ${nodeHost}...`,
+      msg: `Starting Nostrum Listener Service for host ${nodeHost}...`,
     });
     walker.onTransaction(
       (0, transactionHandler_1.createTransactionHandler)(walker.ledgerClient)
