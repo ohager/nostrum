@@ -12,7 +12,7 @@ import { Hero } from "@/components/hero";
 import { FiLink2 } from "react-icons/fi";
 
 interface Props {
-  onConnection: (npub: string, pk: string) => void;
+  onConnection: (npub: string, pk: string, relays: string[]) => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -60,8 +60,11 @@ export const ConnectWalletSection = forwardRef<
         throw e;
       }
 
+      const relayMap = await window.nostr.getRelays();
+      const relays = Object.keys(relayMap);
       Nostr.PublicKey = npub;
-      onConnection(npub, connection.publicKey);
+      Nostr.Relays = relays;
+      onConnection(npub, connection.publicKey, relays);
       setConnected(true);
       onNext();
     } catch (e) {

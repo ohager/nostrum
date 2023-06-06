@@ -6,19 +6,11 @@ import { BsGithub, BsDiscord, BsTelegram } from "react-icons/bs";
 import { Stamp } from "@/components/stamp";
 
 export const NavBar = () => {
-  const { SignaSats, Ledger } = useContext(AppContext);
+  const { Ledger } = useContext(AppContext);
 
   return (
     <div className="fixed navbar z-10 flex items-center">
-      <div className="flex-1">
-        {/*{SignaSats && (*/}
-        {/*  <Fade>*/}
-        {/*    <small className="text-xs text-pink-300">*/}
-        {/*      1 SIGNA = {SignaSats} SATS*/}
-        {/*    </small>*/}
-        {/*  </Fade>*/}
-        {/*)}*/}
-      </div>
+      <div className="flex-1"></div>
       {Ledger.IsTestnet && (
         <div className="flex-1">
           <Stamp label="Testnet" />

@@ -1,6 +1,7 @@
 interface CreateAliasArgs {
   name: string;
   nostrPublicKey: string;
+  nostrRelays: string[];
   signumPublicKey: string;
   nodeHost: string;
 }

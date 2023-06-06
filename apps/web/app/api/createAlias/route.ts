@@ -14,9 +14,22 @@ async function isNodeReachable(ledger: Ledger) {
   }
 }
 
+function keepRelaysWithinLimit(relays: string[]): string[] {
+  const Limit = 750;
+  let count = 0;
+  const ret = [];
+  for (let r of relays) {
+    if (count + r.length <= Limit) {
+      ret.push(r);
+      count += r.length;
+    }
+  }
+  return ret;
+}
+
 export async function POST(request: Request) {
   try {
-    const { nostrPublicKey, signumPublicKey, name, nodeHost } =
+    const { nostrPublicKey, signumPublicKey, name, nodeHost, nostrRelays } =
       await request.json();
 
     if (!nostrPublicKey || !signumPublicKey || !name) {
@@ -35,10 +48,11 @@ export async function POST(request: Request) {
 
     const { signPrivateKey, publicKey } = getSigningKeys();
     const address = Address.fromPublicKey(signumPublicKey);
-    const aliasURI = JSON.stringify({
+    let aliasURI = JSON.stringify({
       vs: 1,
       ac: address.getNumericId(),
       xnostr: nostrPublicKey,
+      xnsrel: keepRelaysWithinLimit(nostrRelays),
       xpk: signumPublicKey,
     });
 

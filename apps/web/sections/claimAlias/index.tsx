@@ -26,6 +26,7 @@ const shortenString = (
 interface Props {
   signumPubKey: string;
   nostrPubKey: string;
+  nostrRelays: string[];
   name: string;
   onGotoName: () => void;
   onGotoConnect: () => void;
@@ -44,6 +45,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
       signumPubKey,
       name,
       nostrPubKey,
+      nostrRelays,
       onGotoName,
       onGotoConnect,
       onClaimed,
@@ -71,6 +73,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
           nodeHost:
             Wallet.Extension.connection.currentNodeHost || Ledger.DefaultNode,
           nostrPublicKey: nostrPubKey,
+          nostrRelays: nostrRelays,
           signumPublicKey: signumPubKey,
         });
         await sleep(1_000); // artificial delay
@@ -90,7 +93,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                 You just claimed: <code>{name}</code>
               </p>
               <p className="pt-2">
-                Your NIP05 Nostr Names are:
+                Your verifiable NIP05 Nostr Identifiers are:
                 <ul>
                   <li>
                     <b>{name}@signum.network</b>

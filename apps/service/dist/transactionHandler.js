@@ -40,10 +40,6 @@ function createTransactionHandler(ledger) {
       if (!npub || !recipientPk) {
         throw new Error("'xnostr' and 'xpk' are required!");
       }
-      const attachment = new core_1.AttachmentMessage({
-        message: `Congratz, you just got your Signum Alias. Your Nostr NIP05 Name is [${aliasName}@signum.network] and/or [${aliasName}@nostrum.network]`,
-        messageIsText: true,
-      });
       const recipient = core_1.Address.fromPublicKey(recipientPk);
       logger_1.logger.log({
         msg: "Transferring Alias",
@@ -56,9 +52,18 @@ function createTransactionHandler(ledger) {
         aliasId: tx.transaction,
         senderPublicKey: publicKey,
         senderPrivateKey: signPrivateKey,
-        attachment,
         amountPlanck: "0",
         feePlanck: util_1.Amount.fromSigna(0.02).getPlanck(),
+        deadline: 60,
+      });
+      await ledger.message.sendMessage({
+        recipientId: recipient.getNumericId(),
+        recipientPublicKey: recipient.getPublicKey(),
+        senderPublicKey: publicKey,
+        senderPrivateKey: signPrivateKey,
+        message: `Congratz, you just got your Signum Alias. Your Nostr NIP05 Name is [${aliasName}@signum.network] and/or [${aliasName}@nostrum.network]`,
+        messageIsText: true,
+        feePlanck: util_1.Amount.fromSigna(0.01).getPlanck(),
         deadline: 60,
       });
       logger_1.logger.log({

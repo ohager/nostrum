@@ -13,6 +13,7 @@ export default function Page() {
   const [state, setState] = useState({
     name: "",
     nostrPubKey: "",
+    nostrRelays: [],
     signumPubKey: "",
   });
 
@@ -40,10 +41,15 @@ export default function Page() {
     window.location.reload();
   };
 
-  const handleConnection = (nostrPubKey: string, signumPubKey: string) => {
+  const handleConnection = (
+    nostrPubKey: string,
+    signumPubKey: string,
+    nostrRelays: string[]
+  ) => {
     setState({
       ...state,
       nostrPubKey,
+      nostrRelays,
       signumPubKey,
     });
   };

@@ -4,6 +4,7 @@ import {
   Ledger,
   Transaction,
   TransactionArbitrarySubtype,
+  TransactionId,
   TransactionType,
 } from "@signumjs/core";
 import { logger } from "./logger";
@@ -50,11 +51,6 @@ export function createTransactionHandler(ledger: Ledger) {
         throw new Error("'xnostr' and 'xpk' are required!");
       }
 
-      const attachment = new AttachmentMessage({
-        message: `Congratz, you just got your Signum Alias. Your Nostr NIP05 Name is [${aliasName}@signum.network] and/or [${aliasName}@nostrum.network]`,
-        messageIsText: true,
-      });
-
       const recipient = Address.fromPublicKey(recipientPk);
 
       logger.log({
@@ -68,9 +64,18 @@ export function createTransactionHandler(ledger: Ledger) {
         aliasId: tx.transaction,
         senderPublicKey: publicKey,
         senderPrivateKey: signPrivateKey,
-        attachment,
         amountPlanck: "0", // transfer
         feePlanck: Amount.fromSigna(0.02).getPlanck(),
+        deadline: 60,
+      });
+      await ledger.message.sendMessage({
+        recipientId: recipient.getNumericId(),
+        recipientPublicKey: recipient.getPublicKey(),
+        senderPublicKey: publicKey,
+        senderPrivateKey: signPrivateKey,
+        message: `Congratz, you just got your Signum Alias. Your Nostr NIP05 Name is [${aliasName}@signum.network] and/or [${aliasName}@nostrum.network]`,
+        messageIsText: true,
+        feePlanck: Amount.fromSigna(0.01).getPlanck(),
         deadline: 60,
       });
       logger.log({

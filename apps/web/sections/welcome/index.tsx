@@ -30,12 +30,10 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
               <div>
                 <h1 className="text-5xl font-bold">Welcome, Nostrian!</h1>
                 <p className="py-6 text-justify text-2xl">
-                  Get your <u>globally decentralized</u> NIP05 Nostr Address.
-                </p>
-                <p className="text-justify text-lg">
-                  Claim your very own Nostr Address stored on the Signum
-                  Blockchain. Truly decentralized! All you need is a Nostr
-                  public key and a Signum Account.
+                  Get your <u>globally decentralized</u> NIP05 Nostr Name Claim
+                  your very own Nostr Name stored on the Signum Blockchain.
+                  Truly decentralized! All you need is a Nostr public key and a
+                  Signum Account.
                 </p>
               </div>
             </div>
@@ -50,7 +48,7 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">Claim your Name</h2>
-                  <p>Within three simple step you can get your name</p>
+                  <p>Within three simple steps you can get your name</p>
                   <ul className="list-none text-justify mt-2">
                     <li>① Choose your Name</li>
                     <li>② Connect with XT Wallet</li>
