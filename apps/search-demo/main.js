@@ -25,7 +25,7 @@ document.querySelector("#app").innerHTML = `
     </div>
     
     <!-- here we use the web component -->
-    <nostrum-name-search id="name-search" signumtld="signum"></nostrum-name-search>
+    <nostrum-name-search id="name-search" signumtld="nostr"></nostrum-name-search>
     <div class="relative">
     <div id="output" class="mockup-code text-sm">
         <pre data-prefix="$"><code>type something...</code></pre>

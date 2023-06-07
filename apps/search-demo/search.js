@@ -10,9 +10,23 @@ function renderWhileSearching(name) {
 }
 
 function renderResult(result) {
+  const resultList = result.matches.filter((r) => !!r.nostrPublicKey);
+
+  const htmlList = resultList.map(
+    (r, index) =>
+      `<pre data-prefix=${index + 1} class="pl-6"><code class="text-accent">${
+        r.aliasName
+      }@signum.network</code></pre>`
+  );
+
   getOutputElement().innerHTML = `
-        <pre data-prefix="$"><code class="text-success">Finished search with following result</code></pre>
-        <pre data-prefix=">"><code><div class="pl-6">${prettyPrintJson.toHtml(
+        <pre data-prefix="$"><code class="text-info">Finished search with following result</code></pre>
+        <pre data-prefix=">"><code class="text-info">Found ${
+          resultList.length
+        } Nostr Account(s)</code></pre>
+        ${htmlList}
+        <pre data-prefix=">"><code>Complete Match List:</code></pre>
+        <pre data-prefix=""><code><div class="pl-6">${prettyPrintJson.toHtml(
           result
         )}</div></code></pre>
 `;

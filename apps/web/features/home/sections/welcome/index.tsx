@@ -9,7 +9,7 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
   ({ onNext }, ref) => {
     const [text] = useTypewriter({
       words: [
-        "Decentralized Nostr Accounts",
+        "Decentralized Nostr Identifiers",
         "Domainless Verification",
         "Globally Searchable",
       ],
