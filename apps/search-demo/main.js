@@ -3,8 +3,8 @@ import { setupNameSearch } from "./search.js";
 import "nostrum-name-search";
 
 document.querySelector("#app").innerHTML = `
-  <div class="relative mx-auto max-w-lg mt-[12%] h-fit">
     <div class="watermark"></div>
+  <div class="relative mx-auto max-w-lg mt-[12%] h-fit">
     <div class="fixed right-2 top-2 w-[24px] opacity-80 hover:opacity-90 transition-opacity">
       <a href="https://github.com/ohager/nostrum" target="_blank" rel="noopener noreferrer">
           <img src="/github-logo.svg" alt="Github Logo">
@@ -17,6 +17,13 @@ document.querySelector("#app").innerHTML = `
     search for <a class="link" href="https://github.com/nostr-protocol/nips/blob/master/05.md" rel="noreferrer noopener" target="_blank">Nostr NIP05 identifiers</a> without relying on relays, i.e. a global decentralized registry
     for Nostr accounts.
     </p>
+    
+    <div class="text-center py-4">
+      <a href="https://nostrum.vercel.app" rel="noopener noreferrer" target="_blank">
+          <button class="btn btn-accent">Get Your Name!</button>
+      </a>
+    </div>
+    
     <!-- here we use the web component -->
     <nostrum-name-search id="name-search" signumtld="signum"></nostrum-name-search>
     <div class="relative">
