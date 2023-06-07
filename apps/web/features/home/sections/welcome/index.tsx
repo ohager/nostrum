@@ -35,6 +35,15 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
                   Blockchain. Truly decentralized! All you need is a Nostr
                   public key and a Signum Account.
                 </p>
+                <p className="border border-base-100/40 p-4 rounded-xl">
+                  <b>Why?</b>
+                  <ul className="list-disc list-inside">
+                    <li>You don't need an own internet domain</li>
+                    <li>You are discoverable worldwide - no relays needed</li>
+                    <li>Your keys, Your Id</li>
+                    <li>No costs</li>
+                  </ul>
+                </p>
               </div>
             </div>
             <div className="max-w-md mx-auto">
