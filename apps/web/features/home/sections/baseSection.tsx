@@ -1,4 +1,4 @@
-import { ChildrenProps } from "../types/childrenProps";
+import { ChildrenProps } from "@/types/childrenProps";
 import { FC, forwardRef } from "react";
 
 interface Props extends ChildrenProps {

@@ -3,7 +3,10 @@ import { BaseSection } from "../baseSection";
 import { NextProps } from "@/types/nextProps";
 import { Hero } from "@/components/hero";
 import { Zoom } from "react-reveal";
-import { NostrumNameSearch, SearchResult } from "nostrum-name-search/react";
+import {
+  NostrumNameSearch,
+  SearchResult,
+} from "../../../../../../packages/nostrum-name-search/react";
 import { useAppContext } from "@/hooks/useAppContext";
 import { NameAvailableCard } from "./nameAvailableCard";
 import { NameNotAvailableCard } from "./nameNotAvailableCard";

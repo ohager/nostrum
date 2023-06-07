@@ -10,7 +10,6 @@ import { useModal } from "@/hooks/useModal";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { createAlias } from "./createAlias";
 import { Simulate } from "react-dom/test-utils";
-import error = Simulate.error;
 
 const shortenString = (
   str: string,
