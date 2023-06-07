@@ -30,10 +30,10 @@ export const WelcomeSection = forwardRef<HTMLDivElement, NextProps>(
               <div>
                 <h1 className="text-5xl font-bold">Welcome, Nostrian!</h1>
                 <p className="py-6 text-justify text-2xl">
-                  Get your <u>globally decentralized</u> NIP05 Nostr Name Claim
-                  your very own Nostr Name stored on the Signum Blockchain.
-                  Truly decentralized! All you need is a Nostr public key and a
-                  Signum Account.
+                  Get your <u>globally decentralized</u> NIP05 Nostr Identifier.
+                  Claim your very own Nostr Name stored on the Signum
+                  Blockchain. Truly decentralized! All you need is a Nostr
+                  public key and a Signum Account.
                 </p>
               </div>
             </div>
