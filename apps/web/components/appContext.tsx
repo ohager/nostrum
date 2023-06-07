@@ -12,7 +12,7 @@ const toBoolean = (v) => v === "true" || v === "1";
 const IsTestnet = toBoolean(process.env.NEXT_PUBLIC_IS_TESTNET || "true");
 
 const context: AppContextType = {
-  AppName: "DeNAVAS",
+  AppName: "Nostrum",
   Wallet: {
     Extension: new GenericExtensionWallet(),
   },

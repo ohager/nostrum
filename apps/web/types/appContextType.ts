@@ -1,7 +1,7 @@
 import { GenericExtensionWallet } from "@signumjs/wallets";
 
 export interface AppContextType {
-  AppName: "DeNAVAS";
+  AppName: string;
   Wallet: {
     Extension: GenericExtensionWallet;
   };
