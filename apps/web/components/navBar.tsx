@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useContext } from "react";
 import { AppContext } from "@/components/appContext";
-import { BsGithub, BsDiscord, BsTelegram } from "react-icons/bs";
+import { BsGithub, BsDiscord, BsTelegram, BsSearch } from "react-icons/bs";
 import { Stamp } from "@/components/stamp";
 
 export const NavBar = () => {
@@ -17,6 +17,16 @@ export const NavBar = () => {
         </div>
       )}
       <div className="flex-none">
+        <div className="tooltip tooltip-left" data-tip="Nostr ID Search Demo">
+          <a
+            href="https://nostrum-search-demo.vercel.app/"
+            className="btn btn-square btn-ghost btn-xl"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            <BsSearch size={20} />
+          </a>
+        </div>
         <div className="tooltip tooltip-left" data-tip="Github">
           <a
             href="https://github.com/ohager/denavas"
