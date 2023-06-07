@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Home } from "../features/home";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.nostrum.network"),
   title: "Nostrum",
   applicationName: "Nostrum",
   keywords: [
