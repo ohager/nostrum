@@ -30,7 +30,7 @@ document.querySelector("#app").innerHTML = `
     <div id="output" class="mockup-code text-sm">
         <pre data-prefix="$"><code>type something...</code></pre>
     </div>
-    <div class="fixed bottom-2 right-2 w-[80px]">
+    <div class="fixed bottom-2 right-2 w-[120px]">
     <a class="opacity-60 hover:opacity-90 transition-opacity" href="https://signum.network" target="_blank" rel="noopener noreferrer">
         <img  src="/powered.svg"  alt="Powered by Signum" />
         </a>
