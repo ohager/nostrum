@@ -12,11 +12,13 @@ function renderWhileSearching(name) {
 function renderResult(result) {
   const resultList = result.matches.filter((r) => !!r.nostrPublicKey);
 
-  const htmlList = resultList.map(
-    (r, index) =>
+  const htmlList = resultList.reduce(
+    (acc, r, index) =>
+      acc +
       `<pre data-prefix=${index + 1} class="pl-6"><code class="text-accent">${
         r.aliasName
-      }@signum.network</code></pre>`
+      }@signum.network</code></pre>`,
+    ""
   );
 
   getOutputElement().innerHTML = `
