@@ -71,7 +71,7 @@ export function createTransactionHandler(ledger: Ledger) {
         recipientPublicKey: recipient.getPublicKey(),
         senderPublicKey: publicKey,
         senderPrivateKey: signPrivateKey,
-        message: `Congratz, you just got your Signum Alias. Your Nostr NIP05 Name is [${aliasName}@signum.network] and/or [${aliasName}@nostrum.network]`,
+        message: `Congratz, you just got your Signum Alias. Your Nostr NIP05 Name is [${aliasName}@signum.network]`,
         messageIsText: true,
         feePlanck: Amount.fromSigna(0.01).getPlanck(),
         deadline: 60,

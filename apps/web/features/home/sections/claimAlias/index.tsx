@@ -97,9 +97,9 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                   <li>
                     <b>{name}@signum.network</b>
                   </li>
-                  <li>
-                    <b>{name}@nostrum.network</b>
-                  </li>
+                  {/*<li>*/}
+                  {/*  <b>{name}@nostrum.network</b>*/}
+                  {/*</li>*/}
                 </ul>
               </p>
               <p className="pt-2">
