@@ -92,7 +92,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                 You just claimed: <code>{name}</code>
               </p>
               <p className="pt-2">
-                Your verifiable NIP05 Nostr Identifiers are:
+                Your verifiable NIP05 Nostr Identifiers:
                 <ul>
                   <li>
                     <b>{name}@signum.network</b>
