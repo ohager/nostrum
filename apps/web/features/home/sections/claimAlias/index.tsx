@@ -177,9 +177,8 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                     <p className="py-6 text-justify">
                       When you claim your name, you will get a so called{" "}
                       <em>Alias</em>. This <em>Alias</em> is a data container on
-                      the Signum Network and belongs exclusively to you. The
-                      data inside the <em>Alias</em> can be changed, e.g. with
-                      the
+                      the Signum Network and belongs exclusively to you. You can
+                      check and edit your <em>Aliases</em>, e.g. with the
                       <a
                         className="link"
                         href="https://signumswap.com"

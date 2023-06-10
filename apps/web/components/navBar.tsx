@@ -19,7 +19,7 @@ export const NavBar = () => {
       <div className="flex-none">
         <div className="tooltip tooltip-left" data-tip="Nostr ID Search Demo">
           <a
-            href="https://nostrum-search-demo.vercel.app/"
+            href="https://search.nostrum.network/"
             className="btn btn-square btn-ghost btn-xl"
             rel="noreferrer noopener"
             target="_blank"
