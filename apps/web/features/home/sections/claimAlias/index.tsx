@@ -9,7 +9,7 @@ import ReactConfetti from "react-confetti";
 import { useModal } from "@/hooks/useModal";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { createAlias } from "./createAlias";
-import { Simulate } from "react-dom/test-utils";
+import { BsCheck, BsClipboard } from "react-icons/bs";
 
 const shortenString = (
   str: string,
@@ -61,8 +61,14 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const [claimingPhase, setClaimingPhase] = useState(-1);
     const [runConfetti, setRunConfetti] = useState(false);
     const [claimError, setClaimError] = useState("");
+    const [hasCopied, setHasCopied] = useState(false);
     const { openModal } = useModal();
     const windowSize = useWindowSize();
+
+    const handleCopy = async () => {
+      await navigator.clipboard.writeText(`${name}@signum.network`);
+      setHasCopied(true);
+    };
 
     const handleClaimNow = async () => {
       try {
@@ -75,14 +81,14 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
           nostrRelays: nostrRelays,
           signumPublicKey: signumPubKey,
         });
-        await sleep(1_000); // artificial delay
+        await sleep(500); // artificial delay
         setClaimingPhase(1);
-        await sleep(1_500);
+        await sleep(500);
         setClaimingPhase(2);
         setRunConfetti(true);
         setTimeout(() => {
           setRunConfetti(false);
-        }, 5_000);
+        }, 3_000);
         openModal({
           type: "success",
           title: "Congratulations 🎉",
@@ -92,7 +98,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                 You just claimed: <code>{name}</code>
               </p>
               <p className="pt-2">
-                Your verifiable NIP05 Nostr Identifiers:
+                Your verifiable NIP05 Nostr Identifier:
                 <ul>
                   <li>
                     <b>{name}@signum.network</b>
@@ -107,6 +113,17 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                 available in two blocks. Check your wallet for the incoming
                 transactions.
               </p>
+              <p className="pt-2">
+                Once confirmed by the network you can use the NIP05 identifier
+                to verify your Nostr account in clients like Damus, Amethyst,
+                Coracle.Social and many more.
+              </p>
+              <div className="mt-4 text-center">
+                <button className="btn btn-accent" onClick={handleCopy}>
+                  {hasCopied ? <BsCheck /> : <BsClipboard size={24} />}
+                  Copy Identifier
+                </button>
+              </div>
             </div>
           ),
         });
@@ -304,9 +321,18 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
                   </button>
                 )}
                 {isDone && !hasError && (
-                  <button className="btn btn-lg btn-ghost" onClick={onReset}>
-                    Reset
-                  </button>
+                  <div className="gap-x-2">
+                    <button
+                      className="btn btn-lg btn-accent"
+                      onClick={handleCopy}
+                    >
+                      {hasCopied ? <BsCheck /> : <BsClipboard size={24} />}
+                      Copy Identifier
+                    </button>
+                    <button className="btn btn-lg btn-ghost" onClick={onReset}>
+                      Reset
+                    </button>
+                  </div>
                 )}
 
                 {hasError && (
