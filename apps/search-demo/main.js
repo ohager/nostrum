@@ -58,6 +58,6 @@ async function countNames() {
   ).textContent = `${tld.numberOfAliases} names registered`;
 }
 
-await countNames();
+countNames();
 // And here we interact with the component
 setupNameSearch(document.querySelector("#name-search"));
