@@ -34,8 +34,8 @@ export async function POST(request: Request) {
 
     if (!nostrPublicKey || !signumPublicKey || !name) {
       return NextResponse.json(
-        {},
-        { status: 400, statusText: "Invalid Parameters" }
+        { error: "Invalid Parameters" },
+        { status: 400 }
       );
     }
 
