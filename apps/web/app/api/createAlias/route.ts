@@ -63,10 +63,18 @@ export async function POST(request: Request) {
       tld,
     });
 
+    // eslint-disable-next-line turbo/no-undeclared-env-vars
+    console.log(
+      "Checking aliases",
+      address.getNumericId(),
+      tld,
+      Number(process.env.NEXT_SERVER_MAX_ALLOWED_ALIASES || "5")
+    );
+
     if (
       // eslint-disable-next-line turbo/no-undeclared-env-vars
-      aliases.length > Number(process.env.NEXT_SERVER_MAX_ALLOWED_ALIASES) ||
-      10
+      aliases.length >
+      Number(process.env.NEXT_SERVER_MAX_ALLOWED_ALIASES || "5")
     ) {
       throw new Error("Max. Aliases per account reached!");
     }
