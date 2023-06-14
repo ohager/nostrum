@@ -18,6 +18,7 @@ export async function createAlias(args: CreateAliasArgs) {
       fullHash,
     };
   } else {
-    throw new Error("Failed creating Alias");
+    const { error } = await response.json();
+    throw new Error(error);
   }
 }

@@ -56,10 +56,24 @@ export async function POST(request: Request) {
       xpk: signumPublicKey,
     });
 
+    // eslint-disable-next-line turbo/no-undeclared-env-vars
+    const tld = process.env.NEXT_PUBLIC_SIGNUM_TLD || "nostr";
+    const { aliases } = await ledger.alias.getAliases({
+      accountId: address.getNumericId(),
+      tld,
+    });
+
+    // eslint-disable-next-line turbo/no-undeclared-env-vars
+    if (
+      aliases.length > Number(process.env.NEXT_SERVER_MAX_ALLOWED_ALIASES) ||
+      10
+    ) {
+      throw new Error("Max. Aliases per account reached!");
+    }
+
     const { fullHash, transaction } = (await ledger.alias.setAlias({
       aliasName: name,
-      // eslint-disable-next-line turbo/no-undeclared-env-vars
-      tld: process.env.NEXT_PUBLIC_SIGNUM_TLD || "nostr",
+      tld,
       aliasURI,
       senderPublicKey: publicKey,
       senderPrivateKey: signPrivateKey,

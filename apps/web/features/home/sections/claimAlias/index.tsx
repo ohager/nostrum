@@ -131,8 +131,17 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
         setClaimError(`Claiming Failed - ${e.message}`);
         openModal({
           type: "error",
-          title: "Oh no!",
-          text: "Something went wrong! Please try again and eventually inform the developer(s)",
+          title: "💩 Oh no!",
+          text: (
+            <div>
+              <div>Claiming failed!</div>
+              <p className="border rounded my-4 py-2 px-4">{e.message}</p>
+              <div className="mt-2 text-gray-500 text-xs">
+                If you think this looks like a temporary glitch, retry or
+                contact the developer
+              </div>
+            </div>
+          ),
         });
       }
     };
