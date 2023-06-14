@@ -10,6 +10,7 @@ import { useModal } from "@/hooks/useModal";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { createAlias } from "./createAlias";
 import { BsCheck, BsClipboard } from "react-icons/bs";
+import * as process from "process";
 
 const shortenString = (
   str: string,
@@ -21,6 +22,19 @@ const shortenString = (
     ? str.substring(0, offset) + delimiter + str.substring(str.length - offset)
     : str;
 };
+const getAliasCount = (accountId: string) => {
+  return Number(localStorage.getItem(accountId) || 0);
+};
+
+const incAliasCount = (accountId: string) => {
+  const n = getAliasCount(accountId);
+  localStorage.setItem(accountId, (n + 1).toString());
+};
+
+// eslint-disable-next-line turbo/no-undeclared-env-vars
+const MaxAliasCount = Number(
+  process.env.NEXT_PUBLIC_MAX_ALLOWED_ALIASES || "5"
+);
 
 interface Props {
   signumPubKey: string;
@@ -73,6 +87,10 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
     const handleClaimNow = async () => {
       try {
         setClaimingPhase(0);
+        const count = getAliasCount(signumPubKey);
+        if (count >= MaxAliasCount) {
+          throw new Error("Max. Aliases per account reached!");
+        }
         await createAlias({
           name,
           nodeHost:
@@ -81,6 +99,7 @@ export const ClaimAliasSection = forwardRef<HTMLDivElement, Props>(
           nostrRelays: nostrRelays,
           signumPublicKey: signumPubKey,
         });
+        incAliasCount(signumPubKey);
         await sleep(500); // artificial delay
         setClaimingPhase(1);
         await sleep(500);
