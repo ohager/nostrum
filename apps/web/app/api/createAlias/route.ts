@@ -63,8 +63,8 @@ export async function POST(request: Request) {
       tld,
     });
 
-    // eslint-disable-next-line turbo/no-undeclared-env-vars
     if (
+      // eslint-disable-next-line turbo/no-undeclared-env-vars
       aliases.length > Number(process.env.NEXT_SERVER_MAX_ALLOWED_ALIASES) ||
       10
     ) {
